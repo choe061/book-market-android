@@ -5,11 +5,13 @@ buildscript {
     repositories {
         google()
         jcenter()
+//        maven {
+//            url 'https://maven.google.com'
+//        }
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.0.0-alpha8'
-        
-
+        classpath 'com.android.tools.build:gradle:2.3.3'
+        classpath 'me.tatarka:gradle-retrolambda:3.5.0'
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
     }
@@ -19,9 +21,35 @@ allprojects {
     repositories {
         google()
         jcenter()
+//        maven {
+//            url 'https://maven.google.com'
+//        }
     }
 }
 
 task clean(type: Delete) {
     delete rootProject.buildDir
+}
+
+ext {
+    buildTools = "26.0.0"
+    supportLib = "26.0.0"
+    espresso = "3.0.0"
+    runner = "1.0.0"
+    constraint = "1.0.2"
+
+    retrofit = "2.3.0"
+    okhttp_logging_interceptor = "3.8.1"
+    gson = "2.8.1"
+
+    rxJava = "2.1.0"
+    rxAndroid = "2.0.1"
+    rxJavaAdapter = "1.0.0"
+
+    dagger = "2.8"
+    annotation_api = "1.2"
+
+    glide = "3.7.0"
+    butterknife = "8.6.0"
+    lombok = "1.16.16"
 }
