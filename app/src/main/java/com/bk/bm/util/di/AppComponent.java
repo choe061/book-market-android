@@ -2,7 +2,7 @@ package com.bk.bm.util.di;
 
 import com.bk.bm.util.di.modules.AppModule;
 import com.bk.bm.util.di.modules.NetModule;
-import com.bk.bm.view.base.BaseActivity;
+import com.bk.bm.base.BaseActivity;
 
 import javax.inject.Singleton;
 

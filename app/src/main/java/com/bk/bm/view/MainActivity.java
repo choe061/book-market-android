@@ -9,12 +9,13 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.bk.bm.R;
-import com.bk.bm.view.base.BaseActivity;
+import com.bk.bm.base.BaseActivity;
+import com.bk.bm.presenter.contract.MainContract;
 
 import butterknife.BindView;
 
 public class MainActivity extends BaseActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements MainContract.View, NavigationView.OnNavigationItemSelectedListener {
 
     @BindView(R.id.drawer_layout) DrawerLayout drawer;
     @BindView(R.id.nav_view) NavigationView navigationView;
@@ -93,5 +94,25 @@ public class MainActivity extends BaseActivity
 
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    @Override
+    public void setPresenter(MainContract.Presenter presenter) {
+
+    }
+
+    @Override
+    public void showProgress() {
+
+    }
+
+    @Override
+    public void hideProgress() {
+
+    }
+
+    @Override
+    public void showToast(String title) {
+        super.showToast(title);
     }
 }

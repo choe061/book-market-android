@@ -1,22 +1,31 @@
-package com.bk.bm.view.base;
+package com.bk.bm.base;
 
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.widget.Toast;
 
 import com.bk.bm.App;
 import com.bk.bm.R;
+import com.bk.bm.network.HttpService;
+
+import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import retrofit2.Retrofit;
 
 /**
  * Created by choi on 2017. 8. 16..
  */
 
 public abstract class BaseActivity extends AppCompatActivity {
+
+    @Inject
+    Retrofit retrofit;
+    protected HttpService httpService;
 
     @BindView(R.id.toolbar) protected Toolbar toolbar;
 
@@ -26,6 +35,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         setContentView(getLayoutResource());
         ButterKnife.bind(this);
         ((App) getApplication()).getAppComponent().inject(this);
+        httpService = retrofit.create(HttpService.class);
         setDisplayHomeEnabled(true);
     }
 
@@ -50,5 +60,9 @@ public abstract class BaseActivity extends AppCompatActivity {
     @Override
     public void setTitle(int titleId) {
         toolbar.setTitle(titleId);
+    }
+
+    protected void showToast(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 }
