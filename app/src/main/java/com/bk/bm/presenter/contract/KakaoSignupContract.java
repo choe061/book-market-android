@@ -31,6 +31,10 @@ public interface KakaoSignupContract {
         @Override
         void attachView(View view);
 
+        void onStart();
+
+        void onStop();
+
         @Override
         void detachView();
     }

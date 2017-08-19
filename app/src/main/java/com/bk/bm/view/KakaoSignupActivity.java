@@ -14,13 +14,13 @@ import com.bk.bm.presenter.contract.KakaoSignupContract;
 
 public class KakaoSignupActivity extends BaseActivity implements KakaoSignupContract.View {
 
-    private KakaoSignupContract.Presenter presenter;
+    private KakaoSignupContract.Presenter mPresenter;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        presenter = new KakaoSignupPresenter();
-        presenter.attachView(this);
+        mPresenter = new KakaoSignupPresenter();
+        mPresenter.attachView(this);
     }
 
     @Override
@@ -31,7 +31,7 @@ public class KakaoSignupActivity extends BaseActivity implements KakaoSignupCont
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        presenter.detachView();
+        mPresenter.detachView();
     }
 
     @Override

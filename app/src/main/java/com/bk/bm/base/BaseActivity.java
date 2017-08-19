@@ -1,6 +1,7 @@
 package com.bk.bm.base;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
@@ -12,6 +13,7 @@ import android.widget.Toast;
 import com.bk.bm.App;
 import com.bk.bm.R;
 import com.bk.bm.network.HttpService;
+import com.bk.bm.util.BookUtils;
 import com.bk.bm.view.LoginActivity;
 import com.kakao.auth.Session;
 import com.kakao.usermgmt.UserManagement;
@@ -32,6 +34,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     @Inject
     Retrofit retrofit;
     protected HttpService httpService;
+    private ProgressDialog mProgressDialog;
 
     @BindView(R.id.toolbar) protected Toolbar toolbar;
 
@@ -40,7 +43,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(getLayoutResource());
         ButterKnife.bind(this);
-        ((App) getApplication()).getAppComponent().inject(this);
+        App.getAppComponent().inject(this);
         httpService = retrofit.create(HttpService.class);
         setDisplayHomeEnabled(true);
     }
@@ -66,6 +69,14 @@ public abstract class BaseActivity extends AppCompatActivity {
     @Override
     public void setTitle(int titleId) {
         toolbar.setTitle(titleId);
+    }
+
+    protected void showProgress() {
+        mProgressDialog = BookUtils.showProgress(this);
+    }
+
+    protected void hideProgress() {
+        mProgressDialog.dismiss();
     }
 
     protected void showToast(String message) {

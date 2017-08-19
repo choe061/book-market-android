@@ -9,11 +9,14 @@ import android.support.v4.app.Fragment;
 
 public abstract class BaseFragment extends Fragment {
 
-    BaseActivity activity;
+    BaseActivity mBaseActivity;
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        activity = (BaseActivity) context;
+        if (context instanceof BaseActivity) {
+            mBaseActivity = (BaseActivity) context;
+        }
     }
+
 }

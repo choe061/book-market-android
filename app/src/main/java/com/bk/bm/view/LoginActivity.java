@@ -15,13 +15,13 @@ import com.bk.bm.presenter.contract.LoginContract;
 
 public class LoginActivity extends BaseActivity implements LoginContract.View {
 
-    private LoginPresenter loginPresenter;
+    private LoginPresenter mLoginPresenter;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        loginPresenter = new LoginPresenter();
-        loginPresenter.attachView(this);
+        mLoginPresenter = new LoginPresenter();
+        mLoginPresenter.attachView(this);
     }
 
     @Override
@@ -31,7 +31,7 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (!loginPresenter.onActivityResult(requestCode, resultCode, data)) {
+        if (!mLoginPresenter.onActivityResult(requestCode, resultCode, data)) {
             return ;
         }
         super.onActivityResult(requestCode, resultCode, data);
@@ -40,7 +40,7 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        loginPresenter.detachView();
+        mLoginPresenter.detachView();
     }
 
     @Override

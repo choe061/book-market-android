@@ -2,13 +2,17 @@ package com.bk.bm.view;
 
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.TabLayout;
 import android.support.v4.view.GravityCompat;
+import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import com.bk.bm.R;
+import com.bk.bm.adapter.ViewPagerAdapter;
 import com.bk.bm.base.BaseActivity;
 import com.bk.bm.presenter.contract.MainContract;
 
@@ -17,8 +21,10 @@ import butterknife.BindView;
 public class MainActivity extends BaseActivity
         implements MainContract.View, NavigationView.OnNavigationItemSelectedListener {
 
-    @BindView(R.id.drawer_layout) DrawerLayout drawer;
-    @BindView(R.id.nav_view) NavigationView navigationView;
+    @BindView(R.id.drawer_layout) DrawerLayout mDrawerLayout;
+    @BindView(R.id.nav_view) NavigationView mNavigationView;
+    @BindView(R.id.main_tab_layout) TabLayout mTabLayout;
+    @BindView(R.id.main_view_pager) ViewPager mViewPager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,11 +35,40 @@ public class MainActivity extends BaseActivity
 //        ButterKnife.bind(this);
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.addDrawerListener(toggle);
+                this, mDrawerLayout, toolbar,
+                R.string.navigation_drawer_open,
+                R.string.navigation_drawer_close);
+        mDrawerLayout.addDrawerListener(toggle);
         toggle.syncState();
 
-        navigationView.setNavigationItemSelectedListener(this);
+        mNavigationView.setNavigationItemSelectedListener(this);
+
+        mTabLayout.addTab(mTabLayout.newTab().setText("Home"));
+        mTabLayout.addTab(mTabLayout.newTab().setText("Purchase"));
+        mTabLayout.addTab(mTabLayout.newTab().setText("Sale"));
+        mTabLayout.addTab(mTabLayout.newTab().setText("전체보기"));
+
+        ViewPagerAdapter viewPagerAdapter =
+                new ViewPagerAdapter(getSupportFragmentManager(), mTabLayout.getTabCount());
+        mViewPager.setAdapter(viewPagerAdapter);
+        mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(mTabLayout));
+        mTabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                mViewPager.setCurrentItem(tab.getPosition());
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
+        showProgress();
     }
 
     @Override
@@ -43,8 +78,8 @@ public class MainActivity extends BaseActivity
 
     @Override
     public void onBackPressed() {
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
+        if (mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
+            mDrawerLayout.closeDrawer(GravityCompat.START);
         } else {
             super.onBackPressed();
         }
@@ -92,7 +127,7 @@ public class MainActivity extends BaseActivity
 
         }
 
-        drawer.closeDrawer(GravityCompat.START);
+        mDrawerLayout.closeDrawer(GravityCompat.START);
         return true;
     }
 
@@ -103,7 +138,7 @@ public class MainActivity extends BaseActivity
 
     @Override
     public void showProgress() {
-
+        super.showProgress();
     }
 
     @Override

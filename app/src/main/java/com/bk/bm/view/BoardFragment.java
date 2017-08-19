@@ -11,13 +11,13 @@ import com.bk.bm.R;
 import com.bk.bm.base.BaseFragment;
 
 /**
- * Created by choi on 2017. 8. 18..
+ * Created by choi on 2017. 8. 19..
  */
 
-public class HomeFragment extends BaseFragment {
+public class BoardFragment extends BaseFragment {
 
     public static Fragment newInstance() {
-        Fragment fragment = new HomeFragment();
+        Fragment fragment = new BoardFragment();
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;
