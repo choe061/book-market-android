@@ -2,12 +2,12 @@ apply plugin: 'com.android.application'
 apply plugin: 'me.tatarka.retrolambda'
 
 android {
-    compileSdkVersion 26
+    compileSdkVersion 25
     buildToolsVersion "${buildTools}"
     defaultConfig {
         applicationId "com.bk.bm"
         minSdkVersion 14
-        targetSdkVersion 26
+        targetSdkVersion 25
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -61,4 +61,15 @@ dependencies {
     compile "com.jakewharton:butterknife:${butterknife}"
     annotationProcessor "com.jakewharton:butterknife-compiler:${butterknife}"
     compile "org.projectlombok:lombok:${lombok}"
+
+    compile "com.google.firebase:firebase-messaging:${firebase}"
+    compile "com.google.firebase:firebase-auth:${firebase}"
+
+    //kakao login sdk
+    compile "com.kakao.sdk:usermgmt:${KAKAO_SDK_VERSION}"
+
+//    compile 'com.google.android.gms:play-services-basement:10.2.6'
+//    compile 'com.google.android.gms:play-services-base:10.0.1'
 }
+
+apply plugin: 'com.google.gms.google-services'

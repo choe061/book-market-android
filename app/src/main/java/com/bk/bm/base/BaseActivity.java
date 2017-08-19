@@ -1,5 +1,7 @@
 package com.bk.bm.base;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
@@ -10,6 +12,10 @@ import android.widget.Toast;
 import com.bk.bm.App;
 import com.bk.bm.R;
 import com.bk.bm.network.HttpService;
+import com.bk.bm.view.LoginActivity;
+import com.kakao.auth.Session;
+import com.kakao.usermgmt.UserManagement;
+import com.kakao.usermgmt.callback.LogoutResponseCallback;
 
 import javax.inject.Inject;
 
@@ -64,5 +70,21 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     protected void showToast(String message) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+    }
+
+    protected final void onKakaoLoginCheck(Activity activity) {
+        if (Session.getCurrentSession().isClosed()) {
+            startActivity(new Intent(activity, LoginActivity.class));
+            finish();
+        }
+    }
+
+    protected final void onKakaoLogout(Activity activity) {
+        UserManagement.requestLogout(new LogoutResponseCallback() {
+            @Override
+            public void onCompleteLogout() {
+                startActivity(new Intent(activity, LoginActivity.class));
+            }
+        });
     }
 }

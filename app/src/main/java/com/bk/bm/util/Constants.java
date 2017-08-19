@@ -5,5 +5,6 @@ package com.bk.bm.util;
  */
 
 public class Constants {
-    public static final String BASE_URL = "";
+    public static final String BASE_URL = "http://book.jinhyung.kim/";
+
 }
