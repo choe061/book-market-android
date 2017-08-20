@@ -13,10 +13,14 @@ import com.bk.bm.R;
 public final class BookUtils {
     private static final String TAG = BookUtils.class.getName();
 
+    //block create instance
+    private BookUtils() {}
+
     public static ProgressDialog showProgress(Context context) {
         ProgressDialog progressDialog = ProgressDialog.show(context, null, null, false, true);
         if (progressDialog.getWindow() != null) {
-            progressDialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+            progressDialog.getWindow()
+                    .setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
         }
         progressDialog.setContentView(R.layout.progress_loading);
         return progressDialog;

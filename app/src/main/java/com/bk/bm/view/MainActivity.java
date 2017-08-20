@@ -68,7 +68,6 @@ public class MainActivity extends BaseActivity
 
             }
         });
-        showProgress();
     }
 
     @Override
@@ -122,8 +121,6 @@ public class MainActivity extends BaseActivity
         } else if (id == R.id.nav_manage) {
 
         } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
 
         }
 

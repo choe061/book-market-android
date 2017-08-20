@@ -72,11 +72,12 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     protected void showProgress() {
+        hideProgress();
         mProgressDialog = BookUtils.showProgress(this);
     }
 
     protected void hideProgress() {
-        mProgressDialog.dismiss();
+        mProgressDialog.cancel();
     }
 
     protected void showToast(String message) {
