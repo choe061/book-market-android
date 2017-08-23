@@ -11,8 +11,6 @@ import com.bk.bm.R;
  */
 
 public final class BookUtils {
-    private static final String TAG = BookUtils.class.getName();
-
     //block create instance
     private BookUtils() {}
 

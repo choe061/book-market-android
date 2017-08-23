@@ -18,4 +18,9 @@ public class SplashActivity extends AppCompatActivity {
         finish();
     }
 
+    @Override
+    public void onBackPressed() {
+        //Block Back button
+        //super.onBackPressed();
+    }
 }

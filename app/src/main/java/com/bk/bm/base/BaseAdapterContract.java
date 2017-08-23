@@ -1,6 +1,6 @@
 package com.bk.bm.base;
 
-import com.bk.bm.util.OnItemClickListener;
+import com.bk.bm.widget.OnBookClickListener;
 
 import java.util.ArrayList;
 
@@ -12,7 +12,7 @@ public interface BaseAdapterContract {
 
     interface View {
 
-        void setOnClickListener(OnItemClickListener onItemClickListener);
+        void setOnClickListener(OnBookClickListener onBookClickListener);
 
         void notifyAdapter();
 

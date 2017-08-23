@@ -7,9 +7,11 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.widget.SwitchCompat;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.bk.bm.R;
 import com.bk.bm.adapter.ViewPagerAdapter;
@@ -20,6 +22,8 @@ import butterknife.BindView;
 
 public class MainActivity extends BaseActivity
         implements MainContract.View, NavigationView.OnNavigationItemSelectedListener {
+
+    private final String TAG = MainActivity.class.getName();
 
     @BindView(R.id.drawer_layout) DrawerLayout mDrawerLayout;
     @BindView(R.id.nav_view) NavigationView mNavigationView;
@@ -67,6 +71,19 @@ public class MainActivity extends BaseActivity
             public void onTabReselected(TabLayout.Tab tab) {
 
             }
+        });
+
+        Menu menu = mNavigationView.getMenu();
+        SwitchCompat alarmAtOnce = (SwitchCompat) menu.findItem(R.id.alarm_at_once)
+                .getActionView().findViewById(R.id.alarm);
+        SwitchCompat alarmRealTime = (SwitchCompat) menu.findItem(R.id.alarm_real_time)
+                .getActionView().findViewById(R.id.alarm);
+
+        alarmAtOnce.setOnClickListener(v -> {
+            Log.d(TAG, "at once");
+        });
+        alarmRealTime.setOnClickListener(v -> {
+            Log.d(TAG, "real time");
         });
     }
 
@@ -119,8 +136,6 @@ public class MainActivity extends BaseActivity
         } else if (id == R.id.nav_slideshow) {
 
         } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
 
         }
 
