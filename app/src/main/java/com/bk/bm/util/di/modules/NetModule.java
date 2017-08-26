@@ -1,5 +1,12 @@
 package com.bk.bm.util.di.modules;
 
+import android.app.Application;
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
+import android.util.Log;
+
+import com.bk.bm.util.Constants;
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -14,6 +21,7 @@ import dagger.Module;
 import dagger.Provides;
 import okhttp3.Authenticator;
 import okhttp3.Credentials;
+import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -36,6 +44,12 @@ public class NetModule {
 
     @Provides
     @Singleton
+    SharedPreferences providesSharedPreferences(Application application) {
+        return PreferenceManager.getDefaultSharedPreferences(application);
+    }
+
+    @Provides
+    @Singleton
     Gson provideGson() {
         GsonBuilder gsonBuilder = new GsonBuilder();
         gsonBuilder.setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES);
@@ -44,21 +58,25 @@ public class NetModule {
 
     @Provides
     @Singleton
-    OkHttpClient provideOkHttpClient() {
+    OkHttpClient provideOkHttpClient(Application application) {
+        final Context context = application.getApplicationContext();
         HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
         interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
         OkHttpClient client = new OkHttpClient.Builder()
                 .addInterceptor(interceptor)
-                .authenticator(new Authenticator() {
+                .addInterceptor(new Interceptor() {
                     @Override
-                    public Request authenticate(Route route, Response response) throws IOException {
-//                        if (response.request().header("Authorization") != null) {
-//                            return null;
-//                        }
-//                        return response.request().newBuilder()
-//                                .header("Authorization", String.format("%s", "value"))
-//                                .build();
-                        return null;
+                    public Response intercept(Chain chain) throws IOException {
+                        Request request = chain.request();
+                        Request newRequest;
+
+                        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+                        String firebaseUserToken = preferences.getString(Constants.FIREBASE_USER_TOKEN, null);
+                        Log.e("Authenticate", firebaseUserToken);
+                        newRequest = request.newBuilder()
+                                .addHeader("mytoken", String.format("%s", firebaseUserToken))
+                                .build();
+                        return chain.proceed(newRequest);
                     }
                 })
                 .connectTimeout(60 * 1000, TimeUnit.MILLISECONDS)

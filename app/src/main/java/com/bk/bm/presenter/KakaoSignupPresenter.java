@@ -1,7 +1,9 @@
 package com.bk.bm.presenter;
 
+import android.content.SharedPreferences;
 import android.util.Log;
 
+import com.bk.bm.network.HttpService;
 import com.bk.bm.presenter.contract.KakaoSignupContract;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -29,7 +31,7 @@ public class KakaoSignupPresenter implements KakaoSignupContract.Presenter {
     private FirebaseAuth mAuth;
 
     @Override
-    public void attachView(KakaoSignupContract.View view) {
+    public void attachView(KakaoSignupContract.View view, HttpService httpService, SharedPreferences sharedPreferences) {
         this.view = view;
         mCompositeDisposable = new CompositeDisposable();
 
@@ -64,6 +66,22 @@ public class KakaoSignupPresenter implements KakaoSignupContract.Presenter {
         mCompositeDisposable.dispose();
     }
 
+    /**
+     * Update UI based on Firebase's current user. Show Login Button if not logged in.
+     */
+    private void updateUI() {
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        if (currentUser != null) {
+//            binding.setCurrentUser(currentUser);
+            if (currentUser.getPhotoUrl() != null) {
+
+            }
+        } else {
+
+        }
+    }
+
+    //카카오 회원가입 정보 받아오기
     private void requestUserInfo() {
         UserManagement.requestMe(new MeResponseCallback() {
             @Override

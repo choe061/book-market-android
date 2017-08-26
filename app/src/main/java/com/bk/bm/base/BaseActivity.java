@@ -3,6 +3,7 @@ package com.bk.bm.base;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
@@ -33,6 +34,8 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     @Inject
     Retrofit retrofit;
+    @Inject
+    protected SharedPreferences sharedPreferences;
     protected HttpService httpService;
     private ProgressDialog mProgressDialog;
 

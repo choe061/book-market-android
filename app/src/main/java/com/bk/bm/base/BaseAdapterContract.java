@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 /**
  * Created by choi on 2017. 8. 18..
+ * RecyclerView Adapter에서 공통적으로 사용되는 Contract interface
  */
 
 public interface BaseAdapterContract {

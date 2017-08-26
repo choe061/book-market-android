@@ -1,6 +1,9 @@
 package com.bk.bm.presenter;
 
+import android.content.SharedPreferences;
+
 import com.bk.bm.model.repository.api.UserApi;
+import com.bk.bm.network.HttpService;
 import com.bk.bm.presenter.contract.MainContract;
 
 /**
@@ -13,7 +16,7 @@ public class MainPresenter implements MainContract.Presenter {
     private UserApi userApi;
 
     @Override
-    public void attachView(MainContract.View view) {
+    public void attachView(MainContract.View view, HttpService httpService, SharedPreferences sharedPreferences) {
         this.view = view;
     }
 

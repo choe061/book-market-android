@@ -1,5 +1,9 @@
 package com.bk.bm.base;
 
+import android.content.SharedPreferences;
+
+import com.bk.bm.network.HttpService;
+
 /**
  * Created by choi on 2017. 8. 18..
  */
@@ -17,7 +21,7 @@ public interface BaseContract {
     }
 
     interface BasePresenter<V extends BaseView> {
-        void attachView(V view);
+        void attachView(V view, HttpService httpService, SharedPreferences sharedPreferences);
 
         void detachView();
     }

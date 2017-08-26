@@ -1,5 +1,7 @@
 package com.bk.bm.util;
 
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.util.Log;
 
 import com.google.firebase.iid.FirebaseInstanceId;
@@ -41,5 +43,9 @@ public class BookFirebaseInstanceIDService extends FirebaseInstanceIdService {
      */
     private void sendRegistrationToServer(String token) {
         // TODO: Implement this method to send token to your app server.
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putString(Constants.FIREBASE_MSG_TOKEN, String.valueOf(token));
+                editor.commit();
     }
 }

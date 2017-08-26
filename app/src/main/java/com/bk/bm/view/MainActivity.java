@@ -1,5 +1,8 @@
 package com.bk.bm.view;
 
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.Signature;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
@@ -8,6 +11,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.SwitchCompat;
+import android.util.Base64;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -17,6 +21,9 @@ import com.bk.bm.R;
 import com.bk.bm.adapter.ViewPagerAdapter;
 import com.bk.bm.base.BaseActivity;
 import com.bk.bm.presenter.contract.MainContract;
+
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 import butterknife.BindView;
 
@@ -37,6 +44,8 @@ public class MainActivity extends BaseActivity
 //        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 //        setSupportActionBar(toolbar);
 //        ButterKnife.bind(this);
+
+        onKakaoLoginCheck(this);
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, mDrawerLayout, toolbar,
@@ -128,15 +137,16 @@ public class MainActivity extends BaseActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
-
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
-
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
+        switch (id) {
+            case R.id.nav_camera:
+                break;
+            case R.id.nav_gallery:
+                break;
+            case R.id.nav_slideshow:
+                break;
+            case R.id.logout:
+                onKakaoLogout(this);
+                break;
         }
 
         mDrawerLayout.closeDrawer(GravityCompat.START);
@@ -155,7 +165,7 @@ public class MainActivity extends BaseActivity
 
     @Override
     public void hideProgress() {
-
+        super.hideProgress();
     }
 
     @Override

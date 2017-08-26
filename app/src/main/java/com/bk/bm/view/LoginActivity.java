@@ -21,7 +21,7 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mLoginPresenter = new LoginPresenter();
-        mLoginPresenter.attachView(this);
+        mLoginPresenter.attachView(this, httpService, sharedPreferences);
     }
 
     @Override
@@ -38,6 +38,12 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
     }
 
     @Override
+    protected void onStart() {
+        super.onStart();
+        mLoginPresenter.onStart(this);
+    }
+
+    @Override
     protected void onDestroy() {
         super.onDestroy();
         mLoginPresenter.detachView();
@@ -50,12 +56,12 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
 
     @Override
     public void showProgress() {
-
+        super.showProgress();
     }
 
     @Override
     public void hideProgress() {
-
+        super.hideProgress();
     }
 
     @Override
@@ -69,8 +75,8 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
     }
 
     @Override
-    public void redirectSignupActivity() {
-        startActivity(new Intent(this, KakaoSignupActivity.class));
+    public void redirectMainActivity() {
+        startActivity(new Intent(this, MainActivity.class));
         finish();
     }
 }
