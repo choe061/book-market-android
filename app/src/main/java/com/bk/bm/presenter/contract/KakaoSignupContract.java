@@ -32,7 +32,7 @@ public interface KakaoSignupContract {
 
     interface Presenter extends BaseContract.BasePresenter<View> {
         @Override
-        void attachView(View view, HttpService httpService, SharedPreferences sharedPreferences);
+        void attachView(View view);
 
         void onStart();
 

@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 
 import com.bk.bm.R;
 import com.bk.bm.base.BaseActivity;
+import com.bk.bm.model.repository.api.UserService;
 import com.bk.bm.presenter.LoginPresenter;
 import com.bk.bm.presenter.contract.LoginContract;
 
@@ -20,8 +21,9 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mLoginPresenter = new LoginPresenter();
-        mLoginPresenter.attachView(this, httpService, sharedPreferences);
+        UserService userService = new UserService(httpService);
+        mLoginPresenter = new LoginPresenter(userService, sharedPreferences);
+        mLoginPresenter.attachView(this);
     }
 
     @Override
@@ -40,7 +42,7 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
     @Override
     protected void onStart() {
         super.onStart();
-        mLoginPresenter.onStart(this);
+        mLoginPresenter.onStart();
     }
 
     @Override

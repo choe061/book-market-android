@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.util.Log;
 
+import com.bk.bm.network.NetworkInterceptor;
 import com.bk.bm.util.Constants;
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
@@ -59,26 +60,11 @@ public class NetModule {
     @Provides
     @Singleton
     OkHttpClient provideOkHttpClient(Application application) {
-        final Context context = application.getApplicationContext();
         HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
         interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
         OkHttpClient client = new OkHttpClient.Builder()
                 .addInterceptor(interceptor)
-                .addInterceptor(new Interceptor() {
-                    @Override
-                    public Response intercept(Chain chain) throws IOException {
-                        Request request = chain.request();
-                        Request newRequest;
-
-                        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
-                        String firebaseUserToken = preferences.getString(Constants.FIREBASE_USER_TOKEN, null);
-                        Log.e("Authenticate", firebaseUserToken);
-                        newRequest = request.newBuilder()
-                                .addHeader("mytoken", String.format("%s", firebaseUserToken))
-                                .build();
-                        return chain.proceed(newRequest);
-                    }
-                })
+                .addInterceptor(new NetworkInterceptor(application))
                 .connectTimeout(60 * 1000, TimeUnit.MILLISECONDS)
                 .readTimeout(60 * 1000, TimeUnit.MILLISECONDS)
                 .build();

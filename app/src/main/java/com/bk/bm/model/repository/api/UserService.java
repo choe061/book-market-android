@@ -15,14 +15,14 @@ import retrofit2.Response;
  * Created by choi on 2017. 8. 18..
  */
 
-public class UserApi {
+public class UserService {
     private HttpService httpService;
 
-    public UserApi(HttpService httpService) {
+    public UserService(HttpService httpService) {
         this.httpService = httpService;
     }
 
-    public Disposable requestFirebaseAuthToken(String token, ApiCallback<Response<JsonObject>> callback) {
+    public Disposable requestFirebaseJwt(String token, ApiCallback<Response<JsonObject>> callback) {
         Observable<Response<JsonObject>> firebaseToken = httpService.firebaseAuthToken(token);
         return firebaseToken.subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())

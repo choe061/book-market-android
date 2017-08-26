@@ -1,11 +1,8 @@
 package com.bk.bm.presenter.contract;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 
 import com.bk.bm.base.BaseContract;
-import com.bk.bm.network.HttpService;
 
 /**
  * Created by choi on 2017. 8. 19..
@@ -32,9 +29,9 @@ public interface LoginContract {
 
     interface Presenter extends BaseContract.BasePresenter<View> {
         @Override
-        void attachView(View view, HttpService httpService, SharedPreferences sharedPreferences);
+        void attachView(View view);
 
-        void onStart(Context context);
+        void onStart();
 
         @Override
         void detachView();

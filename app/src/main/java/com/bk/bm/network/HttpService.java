@@ -19,11 +19,6 @@ import retrofit2.http.Query;
 
 public interface HttpService {
 
-    @GET("/oauth/authorize?client_id={app_key}&redirect_uri={redirect_uri}&response_type=code")
-    Observable<Response<Void>> getCode(@Query("client_id") String clientId,
-                             @Query("rediret_ur") String redirectUri,
-                             @Query("response_type") String code);
-
     @FormUrlEncoded
     @POST("/v0/user")
     Observable<Response<JsonObject>> firebaseAuthToken(@Field("token") String token);

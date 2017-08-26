@@ -31,7 +31,7 @@ public class KakaoSignupPresenter implements KakaoSignupContract.Presenter {
     private FirebaseAuth mAuth;
 
     @Override
-    public void attachView(KakaoSignupContract.View view, HttpService httpService, SharedPreferences sharedPreferences) {
+    public void attachView(KakaoSignupContract.View view) {
         this.view = view;
         mCompositeDisposable = new CompositeDisposable();
 

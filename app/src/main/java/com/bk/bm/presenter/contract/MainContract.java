@@ -1,10 +1,6 @@
 package com.bk.bm.presenter.contract;
 
-import android.content.SharedPreferences;
-
 import com.bk.bm.base.BaseContract;
-import com.bk.bm.model.repository.api.UserApi;
-import com.bk.bm.network.HttpService;
 
 /**
  * Created by choi on 2017. 8. 17..
@@ -27,9 +23,7 @@ public interface MainContract {
     interface Presenter extends BaseContract.BasePresenter<View> {
 
         @Override
-        void attachView(View view, HttpService httpService, SharedPreferences sharedPreferences);
-
-        void setApi(UserApi userApi);
+        void attachView(View view);
 
         @Override
         void detachView();

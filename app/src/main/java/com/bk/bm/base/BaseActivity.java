@@ -16,6 +16,7 @@ import com.bk.bm.R;
 import com.bk.bm.network.HttpService;
 import com.bk.bm.util.BookUtils;
 import com.bk.bm.view.LoginActivity;
+import com.google.firebase.auth.FirebaseAuth;
 import com.kakao.auth.Session;
 import com.kakao.usermgmt.UserManagement;
 import com.kakao.usermgmt.callback.LogoutResponseCallback;
@@ -98,6 +99,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         UserManagement.requestLogout(new LogoutResponseCallback() {
             @Override
             public void onCompleteLogout() {
+                FirebaseAuth.getInstance().signOut();
                 startActivity(new Intent(activity, LoginActivity.class));
             }
         });

@@ -45,7 +45,7 @@ public class BookFirebaseInstanceIDService extends FirebaseInstanceIdService {
         // TODO: Implement this method to send token to your app server.
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         SharedPreferences.Editor editor = sharedPreferences.edit();
-                editor.putString(Constants.FIREBASE_MSG_TOKEN, String.valueOf(token));
-                editor.commit();
+        editor.putString(Constants.FIREBASE_MSG_TOKEN, String.valueOf(token));
+        editor.commit();
     }
 }
