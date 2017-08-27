@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.util.Log;
 
+import com.bk.bm.base.BasePresenter;
 import com.bk.bm.model.User;
 import com.bk.bm.model.repository.api.UserService;
 import com.bk.bm.network.ApiCallback;
@@ -54,7 +55,6 @@ public class LoginPresenter implements LoginContract.Presenter {
         mSessionCallback = new SessionCallback();
         mSession = Session.getCurrentSession();
         mSession.addCallback(mSessionCallback);
-        view.showProgress();
     }
 
     @Override
@@ -71,6 +71,7 @@ public class LoginPresenter implements LoginContract.Presenter {
 
     @Override
     public boolean onActivityResult(int requestCode, int resultCode, Intent data) {
+        view.showProgress();
         if (mSession.handleActivityResult(requestCode, resultCode, data)) {
             return false;
         }
@@ -90,6 +91,7 @@ public class LoginPresenter implements LoginContract.Presenter {
             if (exception != null) {
                 Log.e(TAG, "SessionOpenFailed : "+String.valueOf(exception));
             }
+            view.hideProgress();
             view.redirectLoginActivity();
         }
     }

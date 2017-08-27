@@ -5,7 +5,6 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
 import com.bk.bm.view.BoardFragment;
-import com.bk.bm.view.HomeFragment;
 import com.bk.bm.view.PurchaseFragment;
 import com.bk.bm.view.SaleFragment;
 
@@ -28,15 +27,12 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
 
         switch (position) {
             case 0:
-                fragment = HomeFragment.newInstance();
-                break;
-            case 1:
                 fragment = PurchaseFragment.newInstance();
                 break;
-            case 2:
+            case 1:
                 fragment = SaleFragment.newInstance();
                 break;
-            case 3:
+            case 2:
                 fragment = BoardFragment.newInstance();
                 break;
         }

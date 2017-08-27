@@ -1,5 +1,6 @@
 package com.bk.bm.util.di;
 
+import com.bk.bm.base.BasePresenter;
 import com.bk.bm.util.KakaoSDKAdapter;
 import com.bk.bm.util.di.modules.AppModule;
 import com.bk.bm.util.di.modules.NetModule;
@@ -18,4 +19,5 @@ import dagger.Component;
 public interface AppComponent {
     void inject(BaseActivity activity);
     void inject(KakaoSDKAdapter adapter);
+    void inject(BasePresenter presenter);
 }

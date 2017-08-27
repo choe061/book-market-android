@@ -56,6 +56,9 @@ dependencies {
     annotationProcessor "com.google.dagger:dagger-compiler:${dagger}"
     compile "javax.annotation:javax.annotation-api:${annotation_api}"
 
+    //kakao login sdk
+    compile "com.kakao.sdk:usermgmt:${KAKAO_SDK_VERSION}"
+
     //etc util
     compile "com.github.bumptech.glide:glide:${glide}"
     compile "com.jakewharton:butterknife:${butterknife}"
@@ -65,11 +68,8 @@ dependencies {
     compile "com.google.firebase:firebase-messaging:${firebase}"
     compile "com.google.firebase:firebase-auth:${firebase}"
 
-    //kakao login sdk
-    compile "com.kakao.sdk:usermgmt:${KAKAO_SDK_VERSION}"
-
-//    compile 'com.google.android.gms:play-services-basement:10.2.6'
-//    compile 'com.google.android.gms:play-services-base:10.0.1'
+    compile "com.github.chrisbanes:PhotoView:${photoView}"
+    compile "org.greenrobot:eventbus:${eventBus}"
 }
 
 apply plugin: 'com.google.gms.google-services'

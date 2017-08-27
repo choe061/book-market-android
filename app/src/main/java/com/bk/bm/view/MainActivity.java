@@ -1,8 +1,5 @@
 package com.bk.bm.view;
 
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
-import android.content.pm.Signature;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
@@ -11,19 +8,14 @@ import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.SwitchCompat;
-import android.util.Base64;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 
 import com.bk.bm.R;
 import com.bk.bm.adapter.ViewPagerAdapter;
 import com.bk.bm.base.BaseActivity;
 import com.bk.bm.presenter.contract.MainContract;
-
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 
 import butterknife.BindView;
 
@@ -40,10 +32,6 @@ public class MainActivity extends BaseActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        setContentView(R.layout.activity_main);
-//        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-//        setSupportActionBar(toolbar);
-//        ButterKnife.bind(this);
 
 //        onKakaoLoginCheck(this);
 
@@ -56,10 +44,9 @@ public class MainActivity extends BaseActivity
 
         mNavigationView.setNavigationItemSelectedListener(this);
 
-        mTabLayout.addTab(mTabLayout.newTab().setText("Home"));
-        mTabLayout.addTab(mTabLayout.newTab().setText("Purchase"));
-        mTabLayout.addTab(mTabLayout.newTab().setText("Sale"));
-        mTabLayout.addTab(mTabLayout.newTab().setText("전체보기"));
+        mTabLayout.addTab(mTabLayout.newTab().setText("사고 싶어요"));
+        mTabLayout.addTab(mTabLayout.newTab().setText("팔고 싶어요"));
+        mTabLayout.addTab(mTabLayout.newTab().setText("책 중고장터"));
 
         ViewPagerAdapter viewPagerAdapter =
                 new ViewPagerAdapter(getSupportFragmentManager(), mTabLayout.getTabCount());
