@@ -45,7 +45,7 @@ public class MainActivity extends BaseActivity
 //        setSupportActionBar(toolbar);
 //        ButterKnife.bind(this);
 
-        onKakaoLoginCheck(this);
+//        onKakaoLoginCheck(this);
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, mDrawerLayout, toolbar,
@@ -138,12 +138,6 @@ public class MainActivity extends BaseActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
         switch (id) {
-            case R.id.nav_camera:
-                break;
-            case R.id.nav_gallery:
-                break;
-            case R.id.nav_slideshow:
-                break;
             case R.id.logout:
                 onKakaoLogout(this);
                 break;

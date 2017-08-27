@@ -9,7 +9,7 @@ import com.bk.bm.model.repository.api.UserService;
 import com.bk.bm.network.ApiCallback;
 import com.bk.bm.presenter.contract.LoginContract;
 import com.bk.bm.util.Constants;
-import com.bk.bm.util.FirebaseBookAuth;
+import com.bk.bm.util.BookAuth;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.gson.JsonObject;
 import com.kakao.auth.ISessionCallback;
@@ -112,29 +112,9 @@ public class LoginPresenter implements LoginContract.Presenter {
         mCompositeDisposable.add(disposable);
     }
 
-    private void updateFcmToken(String fcm_token) {
-        User user = new User();
-        user.setFcm_token(fcm_token);
-        Disposable disposable = userService.sendUserInfo(user, new ApiCallback<Response<JsonObject>>() {
-            @Override
-            public void onSuccess(Response<JsonObject> model) {
-                Log.d(TAG, "updateFcmToken Success : "+model.body().get("message"));
-                view.redirectMainActivity();
-            }
-
-            @Override
-            public void onError(String msg) {
-                //TODO fcm token을 보내지 못했을 경우 처리
-                Log.e(TAG, "updateFcmToken Error : "+ msg);
-                view.redirectMainActivity();
-            }
-        });
-        mCompositeDisposable.add(disposable);
-    }
-
     private void signInWithCustomToken(String customToken) {
-        FirebaseBookAuth.signInFirebase(mAuth, customToken,
-                sharedPreferences, new FirebaseBookAuth.SignInCallback() {
+        BookAuth.signInFirebase(mAuth, customToken,
+                sharedPreferences, new BookAuth.SignInCallback() {
             @Override
             public void onSuccess() {
                 String firebaseMessageToken = sharedPreferences.getString(Constants.FIREBASE_MSG_TOKEN, null);
@@ -177,6 +157,27 @@ public class LoginPresenter implements LoginContract.Presenter {
 //                        }
 //                    }
 //                });
+    }
+
+    //TODO 이 메소드 전체가 MainActivity로 가도 될 듯
+    private void updateFcmToken(String fcm_token) {
+        User user = new User();
+        user.setFcm_token(fcm_token);
+        Disposable disposable = userService.sendUserInfo(user, new ApiCallback<Response<JsonObject>>() {
+            @Override
+            public void onSuccess(Response<JsonObject> model) {
+                Log.d(TAG, "updateFcmToken Success : "+model.body().get("message"));
+                view.redirectMainActivity();
+            }
+
+            @Override
+            public void onError(String msg) {
+                //TODO fcm token을 보내지 못했을 경우 처리
+                Log.e(TAG, "updateFcmToken Error : "+ msg);
+                view.redirectMainActivity();
+            }
+        });
+        mCompositeDisposable.add(disposable);
     }
 
     String post(String url, String json) throws IOException {

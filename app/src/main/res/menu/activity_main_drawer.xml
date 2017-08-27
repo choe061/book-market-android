@@ -6,18 +6,6 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_camera"
-            android:icon="@drawable/ic_menu_camera"
-            android:title="Import" />
-        <item
-            android:id="@+id/nav_gallery"
-            android:icon="@drawable/ic_menu_gallery"
-            android:title="Gallery" />
-        <item
-            android:id="@+id/nav_slideshow"
-            android:icon="@drawable/ic_menu_slideshow"
-            android:title="Slideshow" />
-        <item
             android:id="@+id/logout"
             android:icon="@drawable/ic_menu_manage"
             android:title="로그아웃" />
@@ -29,13 +17,13 @@
                 android:id="@+id/alarm_at_once"
                 app:showAsAction="always"
                 app:actionLayout="@layout/push_alarm_setting"
-                android:title="모아서보기 알림" />
+                android:title="매칭 알람 모아서 받기" />
 
             <item
                 android:id="@+id/alarm_real_time"
                 app:showAsAction="always"
                 app:actionLayout="@layout/push_alarm_setting"
-                android:title="실시간 푸시" />
+                android:title="매칭 알람 실시간으로 받기" />
         </menu>
     </item>
 </menu>

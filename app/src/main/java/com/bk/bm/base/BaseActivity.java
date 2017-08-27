@@ -76,7 +76,9 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     protected void showProgress() {
-        hideProgress();
+        if (mProgressDialog != null) {
+            hideProgress();
+        }
         mProgressDialog = BookUtils.showProgress(this);
     }
 

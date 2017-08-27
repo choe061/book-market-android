@@ -17,9 +17,11 @@ import java.util.concurrent.Executors;
  * Created by choi on 2017. 8. 26..
  */
 
-public class FirebaseBookAuth {
+public class BookAuth {
 
-    private static final String TAG = FirebaseBookAuth.class.getName();
+    private static final String TAG = BookAuth.class.getName();
+
+    private BookAuth() {}
 
     public static void signInFirebase(FirebaseAuth auth, String customToken,
                                       SharedPreferences preferences, SignInCallback callback) {

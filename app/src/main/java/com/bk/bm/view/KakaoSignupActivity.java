@@ -20,7 +20,7 @@ public class KakaoSignupActivity extends BaseActivity implements KakaoSignupCont
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mPresenter = new KakaoSignupPresenter();
-        mPresenter.attachView(this, httpService, sharedPreferences);
+        mPresenter.attachView(this);
     }
 
     @Override
