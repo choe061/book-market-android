@@ -30,7 +30,9 @@ public abstract class BaseFragment extends Fragment {
     }
 
     protected void hideProgress() {
-        mProgressDialog.cancel();
+        if (mProgressDialog != null) {
+            mProgressDialog.cancel();
+        }
     }
 
     protected void showToast(String message) {

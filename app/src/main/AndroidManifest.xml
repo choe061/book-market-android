@@ -45,6 +45,13 @@
                 android:value=".view.MainActivity" />
         </activity>
 
+        <activity android:name=".view.AreaSelectActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".view.PurchaseWriteActivity" />
+        </activity>
+
         <service
             android:name=".util.BookFirebaseMessagingService">
             <intent-filter>
