@@ -9,6 +9,7 @@ import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bk.bm.App;
@@ -41,6 +42,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     private ProgressDialog mProgressDialog;
 
     @BindView(R.id.toolbar) protected Toolbar toolbar;
+    @BindView(R.id.toolbar_title) TextView title;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -58,6 +60,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(enabled);
+            getSupportActionBar().setDisplayShowTitleEnabled(false);
         }
     }
 
@@ -67,12 +70,14 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     @Override
     public void setTitle(CharSequence title) {
-        toolbar.setTitle(title);
+//        getSupportActionBar().setTitle(title);
+        this.title.setText(title);
     }
 
     @Override
     public void setTitle(int titleId) {
-        toolbar.setTitle(titleId);
+//        getSupportActionBar().setTitle(titleId);
+        this.title.setText(titleId);
     }
 
     protected void showProgress() {

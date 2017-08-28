@@ -32,7 +32,7 @@ public class MainActivity extends BaseActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        setTitle("췕84");
 //        onKakaoLoginCheck(this);
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
