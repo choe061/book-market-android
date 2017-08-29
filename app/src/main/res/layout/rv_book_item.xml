@@ -4,13 +4,4 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <include
-        android:id="@+id/book_empty"
-        layout="@layout/content_book_empty" />
-
-    <include
-        android:id="@+id/book_main"
-        android:visibility="gone"
-        layout="@layout/content_book_list" />
-
 </LinearLayout>

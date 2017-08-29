@@ -26,6 +26,8 @@ import com.bk.bm.util.MessageEvent;
 
 import org.greenrobot.eventbus.EventBus;
 
+import java.util.ArrayList;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -65,6 +67,16 @@ public class PurchaseStepFragment extends FragmentPagerAdapter {
                 break;
         }
         return fragment;
+    }
+
+    public ArrayList<Fragment> getFragmentInstances() {
+        ArrayList<Fragment> fragments = new ArrayList<>();
+        fragments.add(FirstStepFragment.newInstance());
+        fragments.add(SecondStepFragment.newInstance());
+        fragments.add(ThirdStepFragment.newInstance());
+        fragments.add(FourthStepFragment.newInstance());
+        fragments.add(FifthStepFragment.newInstance());
+        return fragments;
     }
 
     @Override

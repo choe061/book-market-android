@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,9 @@ import android.widget.TextView;
 
 import com.bk.bm.R;
 import com.bk.bm.base.BaseFragment;
+import com.bk.bm.model.repository.api.BookService;
+import com.bk.bm.presenter.PurchasePresenter;
+import com.bk.bm.presenter.contract.PurchaseContract;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -21,10 +25,13 @@ import butterknife.OnClick;
  * Created by choi on 2017. 8. 19..
  */
 
-public class PurchaseFragment extends BaseFragment {
+public class PurchaseFragment extends BaseFragment implements PurchaseContract.View {
 
     @BindView(R.id.book_tv) TextView bookTextView;
     @BindView(R.id.write) Button write;
+    @BindView(R.id.book_list) RecyclerView mBookRecyclerView;
+
+    private PurchaseContract.Presenter mPresenter;
 
     public static Fragment newInstance() {
         Fragment fragment = new PurchaseFragment();
@@ -38,17 +45,47 @@ public class PurchaseFragment extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_purchase, container, false);
         ButterKnife.bind(this, view);
+        BookService bookService = new BookService();
+        mPresenter = new PurchasePresenter(bookService);
+        mPresenter.attachView(this);
         return view;
     }
 
     @Override
     public void onResume() {
         super.onResume();
+        mPresenter.onResume();
         bookTextView.setText("사고싶은 책을 등록해보세요!\n췕84가 매칭시켜드립니다");
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mPresenter.detachView();
     }
 
     @OnClick(R.id.write)
     public void startActivityToWrite() {
         startActivity(new Intent(getContext(), PurchaseWriteActivity.class));
+    }
+
+    @Override
+    public void setPresenter(PurchaseContract.Presenter presenter) {
+
+    }
+
+    @Override
+    public void showProgress() {
+        super.showProgress();
+    }
+
+    @Override
+    public void hideProgress() {
+        super.hideProgress();
+    }
+
+    @Override
+    public void showToast(String title) {
+        super.showToast(title);
     }
 }

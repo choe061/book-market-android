@@ -7,6 +7,7 @@ import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.AppCompatSeekBar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
@@ -19,6 +20,8 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import java.util.ArrayList;
+
 import butterknife.BindView;
 
 /**
@@ -27,7 +30,8 @@ import butterknife.BindView;
 
 public class PurchaseWriteActivity extends BaseActivity {
 
-    private int nowPage = 0;
+    private int mNowPage = 0;
+    private ArrayList<Fragment> mStepFragments = new ArrayList<>();
 
     @BindView(R.id.step) AppCompatSeekBar step;
     @BindView(R.id.enroll) Button enroll;
@@ -41,8 +45,8 @@ public class PurchaseWriteActivity extends BaseActivity {
         step.setPadding(0, 0, 0, 0);
 
         PurchaseStepFragment stepFragment = new PurchaseStepFragment(getSupportFragmentManager(), 5);
-
-        startFragmentInstance(PurchaseStepFragment.FirstStepFragment.newInstance(), 20);
+        mStepFragments = stepFragment.getFragmentInstances();
+        startFragmentInstance(mStepFragments.get(0), 20);
     }
 
     @Override
@@ -82,24 +86,28 @@ public class PurchaseWriteActivity extends BaseActivity {
         int id = item.getItemId();
         //noinspection SimplifiableIfStatement
         if (id == R.id.next) {
-            nowPage++;
-            switch (nowPage) {
+            mNowPage++;
+            int progressStep = (mNowPage + 1) * 20;
+            switch (mNowPage) {
                 case 1:
-                    startFragmentInstance(PurchaseStepFragment.SecondStepFragment.newInstance(), 40);
+                    startFragmentInstance(mStepFragments.get(mNowPage), progressStep);
                     break;
                 case 2:
-                    startFragmentInstance(PurchaseStepFragment.ThirdStepFragment.newInstance(), 60);
+                    startFragmentInstance(mStepFragments.get(mNowPage), progressStep);
                     break;
                 case 3:
-                    startFragmentInstance(PurchaseStepFragment.FourthStepFragment.newInstance(), 80);
+                    startFragmentInstance(mStepFragments.get(mNowPage), progressStep);
                     break;
                 case 4:
-                    startFragmentInstance(PurchaseStepFragment.FifthStepFragment.newInstance(), 100);
+                    startFragmentInstance(mStepFragments.get(mNowPage), progressStep);
                     break;
                 case 5:
                     //완료
                     break;
             }
+            return true;
+        } else if (id == android.R.id.home) {
+            this.onBackPressed();
             return true;
         }
 
@@ -116,6 +124,17 @@ public class PurchaseWriteActivity extends BaseActivity {
             step.setProgress(progressStep, true);
         } else {
             step.setProgress(progressStep);
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (mNowPage == 0) {
+            super.onBackPressed();
+        } else {
+            mNowPage--;
+            int progressStep = (mNowPage + 1) * 20;
+            startFragmentInstance(mStepFragments.get(mNowPage), progressStep);
         }
     }
 }
