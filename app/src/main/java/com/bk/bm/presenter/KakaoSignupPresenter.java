@@ -1,9 +1,7 @@
 package com.bk.bm.presenter;
 
-import android.content.SharedPreferences;
 import android.util.Log;
 
-import com.bk.bm.network.HttpService;
 import com.bk.bm.presenter.contract.KakaoSignupContract;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -49,6 +47,11 @@ public class KakaoSignupPresenter implements KakaoSignupContract.Presenter {
         };
     }
 
+    /**
+     * onStart()~onStop()에 AuthStateListener를 등록한 후
+     * 익명 콜백 메소드 onAuthStateChanged를 정의하면
+     * 토큰 상태가 변경될 때마다 콜백을 호출한다(null이면 로그아웃 상태)
+     */
     @Override
     public void onStart() {
         mAuth.addAuthStateListener(mAuthStateListener);

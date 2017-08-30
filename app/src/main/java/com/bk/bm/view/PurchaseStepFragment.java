@@ -8,6 +8,8 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v7.widget.AppCompatCheckBox;
 import android.support.v7.widget.AppCompatSeekBar;
+import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,11 +17,17 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.CompoundButton;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import com.bk.bm.R;
 import com.bk.bm.base.BaseFragment;
+import com.bk.bm.model.BookList;
+import com.bk.bm.model.repository.api.BookService;
+import com.bk.bm.network.ApiCallback;
+import com.bk.bm.presenter.PurchaseStepPresenter;
+import com.bk.bm.presenter.contract.PurchaseStepContract;
 import com.bk.bm.util.EventData;
 import com.bk.bm.util.EventData.Book;
 import com.bk.bm.util.MessageEvent;
@@ -27,10 +35,12 @@ import com.bk.bm.util.MessageEvent;
 import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import retrofit2.Response;
 
 /**
  * Created by choi on 2017. 8. 28..
@@ -89,7 +99,11 @@ public class PurchaseStepFragment extends FragmentPagerAdapter {
         EventBus.getDefault().post(event);
     }
 
-    public static class FirstStepFragment extends BaseFragment {
+    public static class FirstStepFragment extends BaseFragment implements PurchaseStepContract.View {
+
+        private PurchaseStepContract.Presenter mPresenter;
+        @BindView(R.id.search_book) EditText search;
+
         public static Fragment newInstance() {
             Fragment fragment = new FirstStepFragment();
             Bundle args = new Bundle();
@@ -103,8 +117,55 @@ public class PurchaseStepFragment extends FragmentPagerAdapter {
                                  @Nullable Bundle savedInstanceState) {
             View view = inflater.inflate(R.layout.fragment_purchase_first, container, false);
             ButterKnife.bind(this, view);
+            BookService bookService = new BookService();
+            mPresenter = new PurchaseStepPresenter(bookService);
+            mPresenter.attachView(this);
 
+            search.setOnKeyListener(new View.OnKeyListener() {
+                @Override
+                public boolean onKey(View v, int keyCode, KeyEvent event) {
+                    if ((event.getAction() == KeyEvent.ACTION_DOWN)
+                            && (keyCode == KeyEvent.KEYCODE_ENTER)) {
+                        String bookId = search.getText().toString();
+                        mPresenter.requestSearchBook(bookId);
+                        return true;
+                    }
+                    return false;
+                }
+            });
             return view;
+        }
+
+        @Override
+        public void onResume() {
+            super.onResume();
+
+        }
+
+        @Override
+        public void onDestroy() {
+            super.onDestroy();
+            mPresenter.detachView();
+        }
+
+        @Override
+        public void setPresenter(PurchaseStepContract.Presenter presenter) {
+
+        }
+
+        @Override
+        public void showProgress() {
+            super.showProgress();
+        }
+
+        @Override
+        public void hideProgress() {
+            super.hideProgress();
+        }
+
+        @Override
+        public void showToast(String title) {
+            super.showToast(title);
         }
     }
 

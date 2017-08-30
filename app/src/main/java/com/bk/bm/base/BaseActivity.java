@@ -103,10 +103,12 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     protected final void onKakaoLogout(Activity activity) {
+        showProgress();
         UserManagement.requestLogout(new LogoutResponseCallback() {
             @Override
             public void onCompleteLogout() {
                 FirebaseAuth.getInstance().signOut();
+                hideProgress();
                 startActivity(new Intent(activity, LoginActivity.class));
             }
         });

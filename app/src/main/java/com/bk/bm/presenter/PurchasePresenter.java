@@ -1,8 +1,12 @@
 package com.bk.bm.presenter;
 
+import android.view.View;
+
 import com.bk.bm.base.BaseAdapterContract;
+import com.bk.bm.model.Book;
 import com.bk.bm.model.repository.api.BookService;
 import com.bk.bm.presenter.contract.PurchaseContract;
+import com.bk.bm.widget.OnBookClickListener;
 
 import io.reactivex.disposables.CompositeDisposable;
 
@@ -10,7 +14,7 @@ import io.reactivex.disposables.CompositeDisposable;
  * Created by choi on 2017. 8. 29..
  */
 
-public class PurchasePresenter implements PurchaseContract.Presenter {
+public class PurchasePresenter implements PurchaseContract.Presenter, OnBookClickListener {
 
     private PurchaseContract.View mView;
     private BookService mBookService;
@@ -31,7 +35,7 @@ public class PurchasePresenter implements PurchaseContract.Presenter {
 
     @Override
     public void onResume() {
-
+        mAdapterView.notifyAdapter();
     }
 
     @Override
@@ -58,5 +62,11 @@ public class PurchasePresenter implements PurchaseContract.Presenter {
     @Override
     public void removeBook(int uid) {
 
+    }
+
+    @Override
+    public void onBookClick(View view, Object value) {
+        Book book = (Book) mAdapterModel.getItem((int) value);
+        //TODO 매칭 리스트 페이지로 book
     }
 }

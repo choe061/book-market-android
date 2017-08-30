@@ -34,19 +34,24 @@ public class BookRecyclerViewAdapter extends RecyclerView.Adapter<BookViewHolder
     }
 
     @Override
-    public BookViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
+    public BookViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
         View view = LayoutInflater.from(mContext).inflate(R.layout.rv_book_item, viewGroup, false);
         return new BookViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(BookViewHolder bookViewHolder, int i) {
+    public void onBindViewHolder(BookViewHolder bookViewHolder, int position) {
 
+        bookViewHolder.itemView.setOnClickListener(v -> {
+            if (onBookClick != null) {
+                onBookClick.onBookClick(v, position);
+            }
+        });
     }
 
     @Override
     public int getItemCount() {
-        return mBooks.size();
+        return 5;//mBooks.size();
     }
 
     @Override
@@ -56,7 +61,7 @@ public class BookRecyclerViewAdapter extends RecyclerView.Adapter<BookViewHolder
 
     @Override
     public void notifyAdapter() {
-
+        notifyDataSetChanged();
     }
 
     @Override
@@ -71,6 +76,8 @@ public class BookRecyclerViewAdapter extends RecyclerView.Adapter<BookViewHolder
 
     @Override
     public void clear() {
-
+        if (!mBooks.isEmpty()) {
+            mBooks.clear();
+        }
     }
 }
