@@ -2,15 +2,11 @@ package com.bk.bm.model.repository.api;
 
 import android.util.Log;
 
-import com.bk.bm.model.Book;
-import com.bk.bm.model.BookList;
+import com.bk.bm.model.domain.BookList;
 import com.bk.bm.network.ApiCallback;
 import com.bk.bm.network.HttpService;
 import com.bk.bm.util.Constants;
 
-import java.util.List;
-
-import io.reactivex.disposables.Disposable;
 import okhttp3.OkHttpClient;
 import retrofit2.Call;
 import retrofit2.Callback;

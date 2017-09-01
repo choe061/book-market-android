@@ -3,7 +3,7 @@ package com.bk.bm.presenter;
 import android.view.View;
 
 import com.bk.bm.base.BaseAdapterContract;
-import com.bk.bm.model.Book;
+import com.bk.bm.model.domain.Book;
 import com.bk.bm.model.repository.api.BookService;
 import com.bk.bm.presenter.contract.PurchaseContract;
 import com.bk.bm.widget.OnBookClickListener;

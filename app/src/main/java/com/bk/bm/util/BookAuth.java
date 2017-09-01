@@ -40,9 +40,8 @@ public class BookAuth {
                                     Log.d(TAG, "signInWithCustomLoginToken : "+loginToken);
                                     SharedPreferences.Editor editor = preferences.edit();
                                     editor.putString(Constants.FIREBASE_USER_TOKEN, String.valueOf(loginToken));
-                                    editor.commit();
-
-                                    callback.onSuccess();
+                                    editor.apply();
+                                    callback.onSuccess(loginToken);
                                 }
                             });
                         } else {
@@ -54,8 +53,37 @@ public class BookAuth {
                 });
     }
 
+    public static void signInAnonymouslyFirebase(FirebaseAuth auth, SharedPreferences preferences,
+                                                 SignInCallback callback) {
+        ExecutorService service = Executors.newCachedThreadPool();
+        auth.signInAnonymously()
+                .addOnCompleteListener(service, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            // Sign in success, update UI with the signed-in user's information
+                            FirebaseUser user = auth.getCurrentUser();
+                            String anonymousUserToken = user.getToken(false).getResult().getToken();
+                            Log.d(TAG, "signInAnonymously:success, "+anonymousUserToken);
+
+                            SharedPreferences.Editor editor = preferences.edit();
+                            editor.putString(Constants.FIREBASE_USER_TOKEN, String.valueOf(anonymousUserToken));
+                            editor.apply();
+
+                            callback.onSuccess(anonymousUserToken);
+                        } else {
+                            // If sign in fails, display a message to the user.
+                            Log.w(TAG, "signInAnonymously:failure", task.getException());
+                            callback.onError();
+                        }
+
+                        // ...
+                    }
+                });
+    }
+
     public interface SignInCallback {
-        void onSuccess();
+        void onSuccess(String loginToken);
 
         void onError();
     }

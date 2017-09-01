@@ -20,6 +20,8 @@ public interface PurchaseStepContract {
 
         @Override
         void showToast(String title);
+
+        void setSearch(String title);
     }
 
     interface Presenter extends BaseContract.BasePresenter<View> {

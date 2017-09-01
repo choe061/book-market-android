@@ -3,12 +3,18 @@ package com.bk.bm.view;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.widget.Button;
 
 import com.bk.bm.R;
 import com.bk.bm.base.BaseActivity;
 import com.bk.bm.model.repository.api.UserService;
 import com.bk.bm.presenter.LoginPresenter;
 import com.bk.bm.presenter.contract.LoginContract;
+import com.bk.bm.util.BookAuth;
+import com.google.firebase.auth.FirebaseAuth;
+
+import butterknife.BindView;
+import butterknife.OnClick;
 
 /**
  * Created by choi on 2017. 8. 19..
@@ -29,6 +35,11 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
     @Override
     protected int getLayoutResource() {
         return R.layout.activity_login;
+    }
+
+    @OnClick(R.id.anonymous_login)
+    public void anonymousLogin() {
+        mLoginPresenter.signInAnonymous();
     }
 
     @Override

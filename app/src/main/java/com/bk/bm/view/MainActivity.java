@@ -33,7 +33,7 @@ public class MainActivity extends BaseActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setTitle("췕84");
-//        onKakaoLoginCheck(this);
+        onLoginCheck(this);
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, mDrawerLayout, toolbar,
@@ -104,7 +104,7 @@ public class MainActivity extends BaseActivity
         int id = item.getItemId();
         switch (id) {
             case R.id.logout:
-                onKakaoLogout(this);
+                onLogout(this);
                 break;
         }
 

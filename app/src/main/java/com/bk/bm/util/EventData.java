@@ -30,6 +30,6 @@ public class EventData<M> {
     }
 
     public enum Book {
-        ISBN, MIN_PRICE, MAX_PRICE, TYPE, COMMENT
+        BOOK, MIN_PRICE, MAX_PRICE, TYPE, COMMENT
     }
 }

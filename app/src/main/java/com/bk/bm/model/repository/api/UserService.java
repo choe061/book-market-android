@@ -1,6 +1,6 @@
 package com.bk.bm.model.repository.api;
 
-import com.bk.bm.model.User;
+import com.bk.bm.model.domain.User;
 import com.bk.bm.network.ApiCallback;
 import com.bk.bm.network.HttpService;
 import com.google.gson.JsonObject;

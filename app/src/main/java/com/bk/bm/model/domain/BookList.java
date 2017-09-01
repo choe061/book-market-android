@@ -1,4 +1,4 @@
-package com.bk.bm.model;
+package com.bk.bm.model.domain;
 
 import com.google.gson.annotations.SerializedName;
 

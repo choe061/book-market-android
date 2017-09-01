@@ -4,8 +4,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.util.Log;
 
-import com.bk.bm.base.BasePresenter;
-import com.bk.bm.model.User;
+import com.bk.bm.model.domain.User;
 import com.bk.bm.model.repository.api.UserService;
 import com.bk.bm.network.ApiCallback;
 import com.bk.bm.presenter.contract.LoginContract;
@@ -96,6 +95,7 @@ public class LoginPresenter implements LoginContract.Presenter {
         }
     }
 
+    //kakao token -> server -> custom token
     private void requestFirebaseJwt(String token) {
         Disposable disposable = userService.requestFirebaseJwt(token, new ApiCallback<Response<JsonObject>>() {
             @Override
@@ -114,13 +114,13 @@ public class LoginPresenter implements LoginContract.Presenter {
         mCompositeDisposable.add(disposable);
     }
 
+    //custom token -> firebase login -> login token
     private void signInWithCustomToken(String customToken) {
         BookAuth.signInFirebase(mAuth, customToken,
                 sharedPreferences, new BookAuth.SignInCallback() {
             @Override
-            public void onSuccess() {
-                String firebaseMessageToken = sharedPreferences.getString(Constants.FIREBASE_MSG_TOKEN, null);
-                updateFcmToken(firebaseMessageToken);
+            public void onSuccess(String loginToken) {
+                updateFcmToken(loginToken);
             }
 
             @Override
@@ -159,6 +159,33 @@ public class LoginPresenter implements LoginContract.Presenter {
 //                        }
 //                    }
 //                });
+    }
+
+    /**
+     * 익명 로그인 또는 커스텀 토큰으로 얻은 최종 Firebase 로그인 토큰으로 회원가입
+     * @param token Anonymous SignIn or Custom Token SignIn result token
+     *              -> 계속 변경될 수 있는 토큰인데 이걸로 회원가입을?
+     *              서버에서도 변경되는 토큰을 알수 있나?
+     */
+    private void signUpWithToken(String token) {
+
+    }
+
+    public void signInAnonymous() {
+        view.showProgress();
+        BookAuth.signInAnonymouslyFirebase(mAuth, sharedPreferences, new BookAuth.SignInCallback() {
+            @Override
+            public void onSuccess(String loginToken) {
+                view.redirectMainActivity();
+                view.hideProgress();
+            }
+
+            @Override
+            public void onError() {
+                view.showToast("다시 시도해주세요.");
+                view.hideProgress();
+            }
+        });
     }
 
     //TODO 이 메소드 전체가 MainActivity로 가도 될 듯

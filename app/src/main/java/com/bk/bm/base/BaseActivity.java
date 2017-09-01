@@ -95,14 +95,17 @@ public abstract class BaseActivity extends AppCompatActivity {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 
-    protected final void onKakaoLoginCheck(Activity activity) {
-        if (Session.getCurrentSession().isClosed()) {
-            startActivity(new Intent(activity, LoginActivity.class));
-            finish();
+    protected final void onLoginCheck(Activity activity) {
+        FirebaseAuth auth = FirebaseAuth.getInstance();
+        if (auth.getCurrentUser() == null) {
+            if (Session.getCurrentSession().isClosed()) {
+                startActivity(new Intent(activity, LoginActivity.class));
+                finish();
+            }
         }
     }
 
-    protected final void onKakaoLogout(Activity activity) {
+    protected final void onLogout(Activity activity) {
         showProgress();
         UserManagement.requestLogout(new LogoutResponseCallback() {
             @Override

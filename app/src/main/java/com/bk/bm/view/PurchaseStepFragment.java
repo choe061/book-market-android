@@ -7,25 +7,21 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v7.widget.AppCompatCheckBox;
-import android.support.v7.widget.AppCompatSeekBar;
-import android.util.Log;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
-import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 
 import com.bk.bm.R;
+import com.bk.bm.adapter.SearchBookRecyclerViewAdapter;
 import com.bk.bm.base.BaseFragment;
-import com.bk.bm.model.BookList;
 import com.bk.bm.model.repository.api.BookService;
-import com.bk.bm.network.ApiCallback;
 import com.bk.bm.presenter.PurchaseStepPresenter;
 import com.bk.bm.presenter.contract.PurchaseStepContract;
 import com.bk.bm.util.EventData;
@@ -35,12 +31,9 @@ import com.bk.bm.util.MessageEvent;
 import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
-import retrofit2.Response;
 
 /**
  * Created by choi on 2017. 8. 28..
@@ -103,6 +96,7 @@ public class PurchaseStepFragment extends FragmentPagerAdapter {
 
         private PurchaseStepContract.Presenter mPresenter;
         @BindView(R.id.search_book) EditText search;
+        @BindView(R.id.search_book_result) RecyclerView mSearchBookRecyclerView;
 
         public static Fragment newInstance() {
             Fragment fragment = new FirstStepFragment();
@@ -117,9 +111,15 @@ public class PurchaseStepFragment extends FragmentPagerAdapter {
                                  @Nullable Bundle savedInstanceState) {
             View view = inflater.inflate(R.layout.fragment_purchase_first, container, false);
             ButterKnife.bind(this, view);
+            SearchBookRecyclerViewAdapter adapter = new SearchBookRecyclerViewAdapter(getContext());
+            mSearchBookRecyclerView.setAdapter(adapter);
+            mSearchBookRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
             BookService bookService = new BookService();
             mPresenter = new PurchaseStepPresenter(bookService);
             mPresenter.attachView(this);
+            mPresenter.setAdapterModel(adapter);
+            mPresenter.setAdapterView(adapter);
 
             search.setOnKeyListener(new View.OnKeyListener() {
                 @Override
@@ -143,8 +143,8 @@ public class PurchaseStepFragment extends FragmentPagerAdapter {
         }
 
         @Override
-        public void onDestroy() {
-            super.onDestroy();
+        public void onDestroyView() {
+            super.onDestroyView();
             mPresenter.detachView();
         }
 
@@ -167,9 +167,18 @@ public class PurchaseStepFragment extends FragmentPagerAdapter {
         public void showToast(String title) {
             super.showToast(title);
         }
+
+        @Override
+        public void setSearch(String title) {
+            this.search.setText(title);
+        }
     }
 
     public static class SecondStepFragment extends BaseFragment {
+
+        @BindView(R.id.min_price) EditText minPrice;
+        @BindView(R.id.max_price) EditText maxPrice;
+
         public static Fragment newInstance() {
             Fragment fragment = new SecondStepFragment();
             Bundle args = new Bundle();
@@ -183,6 +192,38 @@ public class PurchaseStepFragment extends FragmentPagerAdapter {
                                  @Nullable Bundle savedInstanceState) {
             View view = inflater.inflate(R.layout.fragment_purchase_second, container, false);
             ButterKnife.bind(this, view);
+            minPrice.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                }
+
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
+                    EventDataPost(Book.MIN_PRICE, s);
+                }
+
+                @Override
+                public void afterTextChanged(Editable s) {
+
+                }
+            });
+            maxPrice.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                }
+
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
+                    EventDataPost(Book.MAX_PRICE, s);
+                }
+
+                @Override
+                public void afterTextChanged(Editable s) {
+
+                }
+            });
             return view;
         }
     }

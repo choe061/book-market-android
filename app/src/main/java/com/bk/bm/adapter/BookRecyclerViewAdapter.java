@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import com.bk.bm.R;
 import com.bk.bm.adapter.viewholder.BookViewHolder;
 import com.bk.bm.base.BaseAdapterContract;
-import com.bk.bm.model.Book;
+import com.bk.bm.model.domain.Book;
 import com.bk.bm.widget.OnBookClickListener;
 import com.bumptech.glide.RequestManager;
 

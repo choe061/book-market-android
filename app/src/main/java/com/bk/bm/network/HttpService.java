@@ -1,11 +1,8 @@
 package com.bk.bm.network;
 
-import com.bk.bm.model.Book;
-import com.bk.bm.model.BookList;
-import com.bk.bm.model.User;
+import com.bk.bm.model.domain.BookList;
+import com.bk.bm.model.domain.User;
 import com.google.gson.JsonObject;
-
-import java.util.List;
 
 import io.reactivex.Observable;
 import retrofit2.Call;
@@ -15,7 +12,6 @@ import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
-import retrofit2.http.PUT;
 import retrofit2.http.Query;
 
 /**
@@ -24,14 +20,29 @@ import retrofit2.http.Query;
 
 public interface HttpService {
 
+    /**
+     * @param token 카카오 로그인 토큰
+     * @return 커스텀 토큰
+     */
     @FormUrlEncoded
     @POST("/v0/user")
     Observable<Response<JsonObject>> firebaseAuthToken(@Field("token") String token);
 
+    /**
+     * 
+     * @param user
+     * @return
+     */
     @POST("/test")
     Observable<Response<JsonObject>> sendUserInfo(@Body User user);
 
-    @GET("/books/v1/volumes")
+    /**
+     * Google Books API
+     * @param key API Key
+     * @param id 검색할 책 이름 or ISBN Code
+     * @return BookList
+     */
+    @GET("/books/v1/volumes?maxResults=40")
     Call<BookList> getBooks(@Query("key") String key, @Query("q") String id);
 
 }
