@@ -29,7 +29,7 @@ public interface HttpService {
     Observable<Response<JsonObject>> firebaseAuthToken(@Field("token") String token);
 
     /**
-     * 
+     *
      * @param user
      * @return
      */

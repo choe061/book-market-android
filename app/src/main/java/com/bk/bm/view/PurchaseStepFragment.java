@@ -105,12 +105,17 @@ public class PurchaseStepFragment extends FragmentPagerAdapter {
             return fragment;
         }
 
+        @Override
+        public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+            super.onViewCreated(view, savedInstanceState);
+        }
+
         @Nullable
         @Override
         public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
                                  @Nullable Bundle savedInstanceState) {
-            View view = inflater.inflate(R.layout.fragment_purchase_first, container, false);
-            ButterKnife.bind(this, view);
+            View view = super.onCreateView(inflater, container, savedInstanceState);
+
             SearchBookRecyclerViewAdapter adapter = new SearchBookRecyclerViewAdapter(getContext());
             mSearchBookRecyclerView.setAdapter(adapter);
             mSearchBookRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -134,6 +139,11 @@ public class PurchaseStepFragment extends FragmentPagerAdapter {
                 }
             });
             return view;
+        }
+
+        @Override
+        protected int getLayoutResource() {
+            return R.layout.fragment_purchase_first;
         }
 
         @Override
@@ -190,8 +200,8 @@ public class PurchaseStepFragment extends FragmentPagerAdapter {
         @Override
         public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
                                  @Nullable Bundle savedInstanceState) {
-            View view = inflater.inflate(R.layout.fragment_purchase_second, container, false);
-            ButterKnife.bind(this, view);
+            View view = super.onCreateView(inflater, container, savedInstanceState);
+
             minPrice.addTextChangedListener(new TextWatcher() {
                 @Override
                 public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -226,6 +236,11 @@ public class PurchaseStepFragment extends FragmentPagerAdapter {
             });
             return view;
         }
+
+        @Override
+        protected int getLayoutResource() {
+            return R.layout.fragment_purchase_second;
+        }
     }
 
     public static class ThirdStepFragment extends BaseFragment {
@@ -243,8 +258,7 @@ public class PurchaseStepFragment extends FragmentPagerAdapter {
         @Override
         public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
                                  @Nullable Bundle savedInstanceState) {
-            View view = inflater.inflate(R.layout.fragment_purchase_third, container, false);
-            ButterKnife.bind(this, view);
+            View view = super.onCreateView(inflater, container, savedInstanceState);
 
             directCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
@@ -254,6 +268,11 @@ public class PurchaseStepFragment extends FragmentPagerAdapter {
                 }
             });
             return view;
+        }
+
+        @Override
+        protected int getLayoutResource() {
+            return R.layout.fragment_purchase_third;
         }
     }
 
@@ -269,9 +288,13 @@ public class PurchaseStepFragment extends FragmentPagerAdapter {
         @Override
         public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
                                  @Nullable Bundle savedInstanceState) {
-            View view = inflater.inflate(R.layout.fragment_purchase_fourth, container, false);
-            ButterKnife.bind(this, view);
+            View view = super.onCreateView(inflater, container, savedInstanceState);
             return view;
+        }
+
+        @Override
+        protected int getLayoutResource() {
+            return R.layout.fragment_purchase_fourth;
         }
     }
 
@@ -287,9 +310,13 @@ public class PurchaseStepFragment extends FragmentPagerAdapter {
         @Override
         public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
                                  @Nullable Bundle savedInstanceState) {
-            View view = inflater.inflate(R.layout.fragment_purchase_fifth, container, false);
-            ButterKnife.bind(this, view);
+            View view = super.onCreateView(inflater, container, savedInstanceState);
             return view;
+        }
+
+        @Override
+        protected int getLayoutResource() {
+            return R.layout.fragment_purchase_fifth;
         }
     }
 }

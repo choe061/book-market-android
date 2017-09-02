@@ -120,7 +120,7 @@ public class LoginPresenter implements LoginContract.Presenter {
                 sharedPreferences, new BookAuth.SignInCallback() {
             @Override
             public void onSuccess(String loginToken) {
-                updateFcmToken(loginToken);
+                updateFcmToken(loginToken); //fcm token이 아니라 유저 토큰
             }
 
             @Override
@@ -188,6 +188,7 @@ public class LoginPresenter implements LoginContract.Presenter {
         });
     }
 
+    //TODO FCM이 아니라 유저 토큰
     //TODO 이 메소드 전체가 MainActivity로 가도 될 듯
     private void updateFcmToken(String fcm_token) {
         User user = new User();

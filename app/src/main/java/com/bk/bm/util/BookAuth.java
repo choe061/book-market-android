@@ -76,8 +76,6 @@ public class BookAuth {
                             Log.w(TAG, "signInAnonymously:failure", task.getException());
                             callback.onError();
                         }
-
-                        // ...
                     }
                 });
     }

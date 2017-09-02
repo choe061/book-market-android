@@ -34,9 +34,13 @@ public class SaleFragment extends BaseFragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_sale, container, false);
-        ButterKnife.bind(this, view);
+        View view = super.onCreateView(inflater, container, savedInstanceState);
         return view;
+    }
+
+    @Override
+    protected int getLayoutResource() {
+        return R.layout.fragment_sale;
     }
 
     @Override

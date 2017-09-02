@@ -8,13 +8,22 @@ import android.support.annotation.NonNull;
 import android.util.Log;
 
 import com.bk.bm.util.Constants;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.GetTokenResult;
 
 import java.io.IOException;
+import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
+import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Consumer;
+import io.reactivex.schedulers.Schedulers;
 import okhttp3.Interceptor;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -25,6 +34,7 @@ import okhttp3.Response;
 
 public class NetworkInterceptor implements Interceptor {
 
+    private final String TAG = NetworkInterceptor.class.getName();
     private String mFirebaseUserToken;
     private SharedPreferences mPreferences;
 
@@ -52,13 +62,27 @@ public class NetworkInterceptor implements Interceptor {
         mAuth = FirebaseAuth.getInstance();
         FirebaseUser user = mAuth.getCurrentUser();
         if (user != null) {
-            ExecutorService service = Executors.newCachedThreadPool();
-            service.execute(() -> {
-                String loginToken = user.getToken(false).getResult().getToken();
-                SharedPreferences.Editor editor = mPreferences.edit();
-                editor.putString(Constants.FIREBASE_USER_TOKEN, String.valueOf(loginToken));
-                editor.commit();
+            StringBuilder token = new StringBuilder();
+//            CountDownLatch countDownLatch = new CountDownLatch(1);
+            user.getToken(true).addOnCompleteListener(new OnCompleteListener<GetTokenResult>() {
+                @Override
+                public void onComplete(@NonNull Task<GetTokenResult> task) {
+                    token.append(task.getResult().getToken());
+                    Log.d(TAG, String.valueOf(token));
+                    SharedPreferences.Editor editor = mPreferences.edit();
+                    editor.putString(Constants.FIREBASE_USER_TOKEN, String.valueOf(token));
+                    editor.commit();
+//                    countDownLatch.countDown();
+                }
             });
+//            try {
+//                countDownLatch.await(30L, TimeUnit.SECONDS);
+//                SharedPreferences.Editor editor = mPreferences.edit();
+//                editor.putString(Constants.FIREBASE_USER_TOKEN, String.valueOf(token));
+//                editor.commit();
+//            } catch (InterruptedException ie) {
+//                Log.e("refreshToken Exception", String.valueOf(ie));
+//            }
         }
     }
 }

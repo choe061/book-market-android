@@ -42,14 +42,18 @@ public class BoardFragment extends BaseFragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_board, container, false);
-        ButterKnife.bind(this, view);
+        View view = super.onCreateView(inflater, container, savedInstanceState);
 
         mFabOpen = AnimationUtils.loadAnimation(getContext(), R.anim.fab_open);
         mFabClose = AnimationUtils.loadAnimation(getContext(), R.anim.fab_close);
         mFabRotateForward = AnimationUtils.loadAnimation(getContext(), R.anim.fab_rotate_forward);
         mFabRotateBackward = AnimationUtils.loadAnimation(getContext(), R.anim.fab_rotate_backward);
         return view;
+    }
+
+    @Override
+    protected int getLayoutResource() {
+        return R.layout.fragment_board;
     }
 
     @OnClick(R.id.fab_main)

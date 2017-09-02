@@ -49,8 +49,7 @@ public class PurchaseFragment extends BaseFragment implements PurchaseContract.V
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_purchase, container, false);
-        ButterKnife.bind(this, view);
+        View view = super.onCreateView(inflater, container, savedInstanceState);
 
         RequestManager requestManager = Glide.with(this);
         BookRecyclerViewAdapter adapter = new BookRecyclerViewAdapter(requestManager, getContext());
@@ -63,6 +62,11 @@ public class PurchaseFragment extends BaseFragment implements PurchaseContract.V
         mPresenter.setAdapterModel(adapter);
         mPresenter.setAdapterView(adapter);
         return view;
+    }
+
+    @Override
+    protected int getLayoutResource() {
+        return R.layout.fragment_purchase;
     }
 
     @Override
