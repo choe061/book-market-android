@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/status1"
+        android:orderInCategory="100"
+        android:title="판매중" />
+
+    <item
+        android:id="@+id/status2"
+        android:orderInCategory="100"
+        android:title="수락완료" />
+
+    <item
+        android:id="@+id/status3"
+        android:orderInCategory="100"
+        android:title="최신순" />
+
+    <item
+        android:id="@+id/status4"
+        android:orderInCategory="100"
+        android:title="낮은가격순" />
+
+    <item
+        android:id="@+id/status5"
+        android:orderInCategory="100"
+        android:title="높은가격순" />
+</menu>

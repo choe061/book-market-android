@@ -39,40 +39,9 @@ import butterknife.ButterKnife;
  * Created by choi on 2017. 8. 28..
  */
 
-public class PurchaseStepFragment extends FragmentPagerAdapter {
+public class PurchaseStepFragment {
 
-    private int numOfTabs;
-
-    public PurchaseStepFragment(FragmentManager fm, int numOfTabs) {
-        super(fm);
-        this.numOfTabs = numOfTabs;
-    }
-
-    @Override
-    public Fragment getItem(int position) {
-        Fragment fragment = null;
-
-        switch (position) {
-            case 0:
-                fragment = FirstStepFragment.newInstance();
-                break;
-            case 1:
-                fragment = SecondStepFragment.newInstance();
-                break;
-            case 2:
-                fragment = ThirdStepFragment.newInstance();
-                break;
-            case 3:
-                fragment = FourthStepFragment.newInstance();
-                break;
-            case 4:
-                fragment = FifthStepFragment.newInstance();
-                break;
-        }
-        return fragment;
-    }
-
-    public ArrayList<Fragment> getFragmentInstances() {
+    public static ArrayList<Fragment> getFragmentInstances() {
         ArrayList<Fragment> fragments = new ArrayList<>();
         fragments.add(FirstStepFragment.newInstance());
         fragments.add(SecondStepFragment.newInstance());
@@ -82,12 +51,7 @@ public class PurchaseStepFragment extends FragmentPagerAdapter {
         return fragments;
     }
 
-    @Override
-    public int getCount() {
-        return numOfTabs;
-    }
-
-    public static void EventDataPost(Book book, Object o) {
+    public static void eventDataProvider(Book book, Object o) {
         MessageEvent event = new MessageEvent(new EventData(book, o));
         EventBus.getDefault().post(event);
     }
@@ -210,7 +174,7 @@ public class PurchaseStepFragment extends FragmentPagerAdapter {
 
                 @Override
                 public void onTextChanged(CharSequence s, int start, int before, int count) {
-                    EventDataPost(Book.MIN_PRICE, s);
+                    eventDataProvider(Book.MIN_PRICE, s);
                 }
 
                 @Override
@@ -226,7 +190,7 @@ public class PurchaseStepFragment extends FragmentPagerAdapter {
 
                 @Override
                 public void onTextChanged(CharSequence s, int start, int before, int count) {
-                    EventDataPost(Book.MAX_PRICE, s);
+                    eventDataProvider(Book.MAX_PRICE, s);
                 }
 
                 @Override
@@ -277,6 +241,9 @@ public class PurchaseStepFragment extends FragmentPagerAdapter {
     }
 
     public static class FourthStepFragment extends BaseFragment {
+
+        @BindView(R.id.comment) EditText comment;
+
         public static Fragment newInstance() {
             Fragment fragment = new FourthStepFragment();
             Bundle args = new Bundle();
@@ -289,6 +256,22 @@ public class PurchaseStepFragment extends FragmentPagerAdapter {
         public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
                                  @Nullable Bundle savedInstanceState) {
             View view = super.onCreateView(inflater, container, savedInstanceState);
+            comment.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                }
+
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
+                    eventDataProvider(Book.COMMENT, s.toString());
+                }
+
+                @Override
+                public void afterTextChanged(Editable s) {
+
+                }
+            });
             return view;
         }
 

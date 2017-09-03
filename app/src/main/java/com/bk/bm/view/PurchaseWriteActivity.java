@@ -44,8 +44,7 @@ public class PurchaseWriteActivity extends BaseActivity {
         setTitle("글쓰기");
         step.setPadding(0, 0, 0, 0);
 
-        PurchaseStepFragment stepFragment = new PurchaseStepFragment(getSupportFragmentManager(), 5);
-        mStepFragments = stepFragment.getFragmentInstances();
+        mStepFragments = PurchaseStepFragment.getFragmentInstances();
         startFragmentInstance(mStepFragments.get(0), 20);
     }
 

@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
+import android.text.TextUtils;
 import android.util.Log;
 
 import com.bk.bm.util.Constants;
@@ -63,26 +64,23 @@ public class NetworkInterceptor implements Interceptor {
         FirebaseUser user = mAuth.getCurrentUser();
         if (user != null) {
             StringBuilder token = new StringBuilder();
-//            CountDownLatch countDownLatch = new CountDownLatch(1);
+            CountDownLatch countDownLatch = new CountDownLatch(1);
             user.getToken(true).addOnCompleteListener(new OnCompleteListener<GetTokenResult>() {
                 @Override
                 public void onComplete(@NonNull Task<GetTokenResult> task) {
                     token.append(task.getResult().getToken());
                     Log.d(TAG, String.valueOf(token));
-                    SharedPreferences.Editor editor = mPreferences.edit();
-                    editor.putString(Constants.FIREBASE_USER_TOKEN, String.valueOf(token));
-                    editor.commit();
-//                    countDownLatch.countDown();
+                    countDownLatch.countDown();
                 }
             });
-//            try {
-//                countDownLatch.await(30L, TimeUnit.SECONDS);
-//                SharedPreferences.Editor editor = mPreferences.edit();
-//                editor.putString(Constants.FIREBASE_USER_TOKEN, String.valueOf(token));
-//                editor.commit();
-//            } catch (InterruptedException ie) {
-//                Log.e("refreshToken Exception", String.valueOf(ie));
-//            }
+            try {
+                countDownLatch.await(3L, TimeUnit.SECONDS);
+                SharedPreferences.Editor editor = mPreferences.edit();
+                editor.putString(Constants.FIREBASE_USER_TOKEN, String.valueOf(token));
+                editor.commit();
+            } catch (InterruptedException ie) {
+                Log.e("refreshToken Exception", String.valueOf(ie));
+            }
         }
     }
 }

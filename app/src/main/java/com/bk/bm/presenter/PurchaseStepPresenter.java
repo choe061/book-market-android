@@ -91,6 +91,6 @@ public class PurchaseStepPresenter implements PurchaseStepContract.Presenter, On
     public void onBookClick(View view, Object value) {
         BookInfo bookInfo = (BookInfo) mAdapterModel.getItem((int)value);
         mView.setSearch(bookInfo.getVolumeInfo().getTitle());
-        PurchaseStepFragment.EventDataPost(EventData.Book.BOOK, bookInfo);
+        PurchaseStepFragment.eventDataProvider(EventData.Book.BOOK, bookInfo);
     }
 }

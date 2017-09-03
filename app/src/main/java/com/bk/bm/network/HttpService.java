@@ -1,5 +1,6 @@
 package com.bk.bm.network;
 
+import com.bk.bm.model.domain.Book;
 import com.bk.bm.model.domain.BookList;
 import com.bk.bm.model.domain.User;
 import com.google.gson.JsonObject;
@@ -44,5 +45,13 @@ public interface HttpService {
      */
     @GET("/books/v1/volumes?maxResults=40")
     Call<BookList> getBooks(@Query("key") String key, @Query("q") String id);
+
+    /**
+     * 구매할 책 등록 + 판매까지?
+     * @param book
+     * @return
+     */
+    @POST("/v0/book")
+    Observable<Response<Void>> enrollPurchaseBook(@Body Book book);
 
 }

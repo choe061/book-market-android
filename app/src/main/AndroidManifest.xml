@@ -17,7 +17,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity android:name=".view.SplashActivity"
+        <activity
+            android:name=".view.SplashActivity"
             android:theme="@style/SplashTheme"
             android:screenOrientation="portrait">
             <intent-filter>
@@ -34,10 +35,12 @@
             android:screenOrientation="portrait">
         </activity>
 
-        <activity android:name=".view.KakaoSignupActivity"
+        <activity
+            android:name=".view.KakaoSignupActivity"
             android:screenOrientation="portrait"/>
 
-        <activity android:name=".view.LoginActivity"
+        <activity
+            android:name=".view.LoginActivity"
             android:theme="@style/AppTheme.NoActionBar"
             android:screenOrientation="portrait"/>
 
@@ -50,12 +53,31 @@
                 android:value=".view.MainActivity" />
         </activity>
 
-        <activity android:name=".view.AreaSelectActivity"
+        <activity
+            android:name=".view.AreaSelectActivity"
             android:theme="@style/AppTheme.NoActionBar"
             android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".view.PurchaseWriteActivity" />
+        </activity>
+
+        <activity
+            android:name=".view.BookMatchingActivity"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".view.MainActivity" />
+        </activity>
+
+        <activity
+            android:name=".view.BookInfoActivity"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".view.BookMatchingActivity" />
         </activity>
 
         <service

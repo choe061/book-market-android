@@ -5,10 +5,10 @@ import com.bk.bm.base.BaseContract;
 import com.bk.bm.model.domain.Book;
 
 /**
- * Created by choi on 2017. 8. 29..
+ * Created by choi on 2017. 9. 4..
  */
 
-public interface PurchaseContract {
+public interface BookMatchingContract {
     interface View extends BaseContract.BaseView<Presenter> {
         @Override
         void setPresenter(Presenter presenter);
@@ -22,7 +22,7 @@ public interface PurchaseContract {
         @Override
         void showToast(String title);
 
-        void startBookMatchingActivity(Book book);
+        void startBookInfoActivity(Book book);
     }
 
     interface Presenter extends BaseContract.BasePresenter<View> {
@@ -39,7 +39,5 @@ public interface PurchaseContract {
         void setAdapterView(BaseAdapterContract.View adapterView);
 
         void getBookList();
-
-        void removeBook(int uid);
     }
 }
