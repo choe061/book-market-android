@@ -70,6 +70,8 @@ dependencies {
 
     compile "com.github.chrisbanes:PhotoView:${photoView}"
     compile "org.greenrobot:eventbus:${eventBus}"
+
+    compile 'me.relex:circleindicator:1.2.2@aar'
 }
 
 apply plugin: 'com.google.gms.google-services'

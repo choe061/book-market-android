@@ -28,7 +28,7 @@
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp"
         android:gravity="top"
-        android:background="@drawable/book_edittext"
+        android:background="@drawable/book_box"
         android:lines="15"
         android:padding="10dp"/>
 </LinearLayout>

@@ -13,7 +13,6 @@ import android.widget.Button;
 
 import com.bk.bm.R;
 import com.bk.bm.base.BaseActivity;
-import com.bk.bm.util.EventData;
 import com.bk.bm.util.EventData.Book;
 import com.bk.bm.util.MessageEvent;
 
@@ -27,11 +26,11 @@ import java.util.HashMap;
 import butterknife.BindView;
 
 /**
- * Created by choi on 2017. 8. 28..
+ * Created by choi on 2017. 9. 4..
  */
 
-public class PurchaseWriteActivity extends BaseActivity {
-    private final String TAG = PurchaseWriteActivity.class.getName();
+public class SaleWriteActivity extends BaseActivity {
+    private final String TAG = SaleWriteActivity.class.getName();
 
     private int mNowPage = 0;
     private ArrayList<Fragment> mStepFragments = new ArrayList<>();
@@ -48,13 +47,13 @@ public class PurchaseWriteActivity extends BaseActivity {
         setTitle("글쓰기");
         step.setPadding(0, 0, 0, 0);
 
-        mStepFragments = PurchaseStepFragment.newInstances();
-        startFragmentInstance(mStepFragments.get(0), 20);
+        mStepFragments = SaleStepFragment.newInstances();
+        startFragmentInstance(mStepFragments.get(0), 16);
     }
 
     @Override
     protected int getLayoutResource() {
-        return R.layout.activity_purchase_write;
+        return R.layout.activity_sale_write;
     }
 
     @Override
@@ -91,7 +90,7 @@ public class PurchaseWriteActivity extends BaseActivity {
         //noinspection SimplifiableIfStatement
         if (id == R.id.next) {
             mNowPage++;
-            int progressStep = (mNowPage + 1) * 20;
+            int progressStep = (mNowPage + 1) * 16;
             switch (mNowPage) {
                 case 1:
                     startFragmentInstance(mStepFragments.get(mNowPage), progressStep);
@@ -106,6 +105,9 @@ public class PurchaseWriteActivity extends BaseActivity {
                     startFragmentInstance(mStepFragments.get(mNowPage), progressStep);
                     break;
                 case 5:
+                    startFragmentInstance(mStepFragments.get(mNowPage), progressStep);
+                    break;
+                case 6:
                     //완료
                     break;
             }

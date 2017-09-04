@@ -4,7 +4,9 @@
     package="com.bk.bm">
 
     <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-feature android:name="android.hardware.camera" />
     <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.hardware.camera.autofocus" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
 
@@ -46,6 +48,15 @@
 
         <activity
             android:name=".view.PurchaseWriteActivity"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".view.MainActivity" />
+        </activity>
+
+        <activity
+            android:name=".view.SaleWriteActivity"
             android:theme="@style/AppTheme.NoActionBar"
             android:screenOrientation="portrait">
             <meta-data

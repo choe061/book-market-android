@@ -1,5 +1,6 @@
 package com.bk.bm.view;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -14,6 +15,7 @@ import com.bk.bm.base.BaseFragment;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * Created by choi on 2017. 8. 19..
@@ -47,5 +49,10 @@ public class SaleFragment extends BaseFragment {
     public void onResume() {
         super.onResume();
         bookTextView.setText("팔고싶은 책을 등록해보세요!\n췕84가 매칭시켜드립니다");
+    }
+
+    @OnClick({R.id.write, R.id.fab_write})
+    public void startActivityToWrite() {
+        startActivity(new Intent(getContext(), SaleWriteActivity.class));
     }
 }

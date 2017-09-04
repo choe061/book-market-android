@@ -13,6 +13,7 @@
         android:text="가격 등록"/>
 
     <TextView
+        android:id="@+id/price_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
@@ -29,6 +30,7 @@
         android:layout_marginRight="30dp">
 
         <TextView
+            android:id="@+id/min_price_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="15sp"
@@ -50,6 +52,7 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/max_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"

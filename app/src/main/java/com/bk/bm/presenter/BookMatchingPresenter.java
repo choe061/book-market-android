@@ -62,7 +62,7 @@ public class BookMatchingPresenter implements BookMatchingContract.Presenter, On
 
     @Override
     public void onBookClick(View view, Object value) {
-        Book book = (Book) mAdapterModel.getItem((int) value);
+//        Book book = (Book) mAdapterModel.getItem((int) value);
         mView.startBookInfoActivity(new Book());
     }
 }
