@@ -91,7 +91,7 @@ public class BookMatchingActivity extends BaseActivity implements BookMatchingCo
     @Override
     public void startBookInfoActivity(Book book) {
         Intent intent = new Intent(this, BookInfoActivity.class);
-        Book testBook = new Book("1234", "1234", "빅피처", 10000, new ArrayList<>(), "good", "gg", new ArrayList<>());
+        Book testBook = new Book("1234", "1234", "빅피처", 10000, new ArrayList<>(), new ArrayList<>(), "good", "gg", new ArrayList<>());
         intent.putExtra("book_uid", testBook);
         startActivity(intent);
     }

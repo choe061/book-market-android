@@ -2,11 +2,16 @@ package com.bk.bm.model.repository.api;
 
 import android.util.Log;
 
+import com.bk.bm.model.domain.Book;
 import com.bk.bm.model.domain.BookList;
 import com.bk.bm.network.ApiCallback;
 import com.bk.bm.network.HttpService;
 import com.bk.bm.util.Constants;
 
+import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 import okhttp3.OkHttpClient;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -19,7 +24,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 
 public class BookService {
-//    private HttpService httpService;
+    private HttpService httpService;
 
     private static OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
 
@@ -28,9 +33,12 @@ public class BookService {
                     .baseUrl("https://www.googleapis.com/")
                     .addConverterFactory(GsonConverterFactory.create());
 
-//    public BookService(HttpService httpService) {
-//        this.httpService = httpService;
-//    }
+    public BookService() {
+    }
+
+    public BookService(HttpService httpService) {
+        this.httpService = httpService;
+    }
 
     public <S> S createService(Class<S> serviceClass) {
         Retrofit retrofit = builder.client(httpClient.build()).build();
@@ -52,5 +60,12 @@ public class BookService {
                 callback.onError(t.getMessage());
             }
         });
+    }
+
+    public Disposable uploadSaleBook(Book book, ApiCallback<Response<Void>> callback) {
+        Observable<Response<Void>> enrollBook = httpService.enrollSaleBook(book);
+        return enrollBook.subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(reponse -> callback.onSuccess(reponse), throwable -> callback.onError(throwable.getMessage()));
     }
 }

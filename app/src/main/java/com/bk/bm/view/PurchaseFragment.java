@@ -114,7 +114,7 @@ public class PurchaseFragment extends BaseFragment implements PurchaseContract.V
     @Override
     public void startBookMatchingActivity(Book book) {
         Intent intent = new Intent(getContext(), BookMatchingActivity.class);
-        Book testBook = new Book("1234", "1234", "빅피처", 10000, new ArrayList<>(), "good", "gg", new ArrayList<>());
+        Book testBook = new Book("1234", "1234", "빅피처", 10000, new ArrayList<>(), new ArrayList<>(), "good", "gg", new ArrayList<>());
         Log.e("BOOK", testBook.getTitle());
         intent.putExtra("book_uid", testBook); //제목과 매칭될 책 id만 넘길지 parcelable 구현해서 book을 넘길지
         startActivity(intent);

@@ -47,11 +47,19 @@ public interface HttpService {
     Call<BookList> getBooks(@Query("key") String key, @Query("q") String id);
 
     /**
-     * 구매할 책 등록 + 판매까지?
+     * 사는 책 등록은 Filter로 수정
      * @param book
      * @return
      */
     @POST("/v0/book")
     Observable<Response<Void>> enrollPurchaseBook(@Body Book book);
+
+    /**
+     * 파는 책 등록
+     * @param book
+     * @return
+     */
+    @POST("/v0/book")
+    Observable<Response<Void>> enrollSaleBook(@Body Book book);
 
 }

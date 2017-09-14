@@ -62,13 +62,12 @@ public class NetModule {
     OkHttpClient provideOkHttpClient(Application application) {
         HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
         interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
-        OkHttpClient client = new OkHttpClient.Builder()
+        OkHttpClient.Builder client = new OkHttpClient.Builder()
                 .addInterceptor(interceptor)
                 .addInterceptor(new NetworkInterceptor(application))
                 .connectTimeout(60 * 1000, TimeUnit.MILLISECONDS)
-                .readTimeout(60 * 1000, TimeUnit.MILLISECONDS)
-                .build();
-        return client;
+                .readTimeout(60 * 1000, TimeUnit.MILLISECONDS);
+        return client.build();
     }
 
     @Provides

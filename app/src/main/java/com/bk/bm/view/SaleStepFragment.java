@@ -54,7 +54,8 @@ public class SaleStepFragment {
         fragments.add(FirstStepFragment.newInstance());
         fragments.add(SecondStepFragment.newInstance());
         fragments.add(ThirdStepFragment.newInstance());
-        fragments.add(BookGalleryStepFragment.newInstance());
+        fragments.add(BookPhotoFragment.newInstance());
+//        fragments.add(BookGalleryStepFragment.newInstance());
         fragments.add(FourthStepFragment.newInstance());
         fragments.add(FifthStepFragment.newInstance());
         return fragments;
@@ -99,7 +100,7 @@ public class SaleStepFragment {
             mSearchBookRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
             BookService bookService = new BookService();
-            mPresenter = new SaleStepPresenter();
+            mPresenter = new SaleStepPresenter(bookService);
             mPresenter.attachView(this);
             mPresenter.setAdapterModel(adapter);
             mPresenter.setAdapterView(adapter);
@@ -118,6 +119,8 @@ public class SaleStepFragment {
             });
             return view;
         }
+
+
 
         @Override
         protected int getLayoutResource() {
@@ -202,22 +205,6 @@ public class SaleStepFragment {
 
                 }
             });
-            maxPrice.addTextChangedListener(new TextWatcher() {
-                @Override
-                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-                }
-
-                @Override
-                public void onTextChanged(CharSequence s, int start, int before, int count) {
-                    eventDataProvider(Book.MAX_PRICE, s);
-                }
-
-                @Override
-                public void afterTextChanged(Editable s) {
-
-                }
-            });
             return view;
         }
 
@@ -229,8 +216,9 @@ public class SaleStepFragment {
 
     public static class ThirdStepFragment extends BaseFragment {
 
-        @BindView(R.id.direct)
-        AppCompatCheckBox directCheckBox;
+        @BindView(R.id.direct) AppCompatCheckBox directCheckBox;
+        @BindView(R.id.indirect) AppCompatCheckBox indirectCheckBox;
+        @BindView(R.id.exchange) AppCompatCheckBox exchangeCheckBox;
 
         public static Fragment newInstance() {
             Fragment fragment = new ThirdStepFragment();
@@ -245,11 +233,20 @@ public class SaleStepFragment {
                                  @Nullable Bundle savedInstanceState) {
             View view = super.onCreateView(inflater, container, savedInstanceState);
 
-            directCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            directCheckBox.setOnCheckedChangeListener((buttonView, isChecked) -> {
+                startActivity(new Intent(getContext(), AreaSelectActivity.class));
+                getActivity().overridePendingTransition(R.anim.area_page_up, R.anim.page_fix);
+            });
+            indirectCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                    startActivity(new Intent(getContext(), AreaSelectActivity.class));
-                    getActivity().overridePendingTransition(R.anim.area_page_up, R.anim.page_fix);
+
+                }
+            });
+            exchangeCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+
                 }
             });
             return view;
@@ -352,7 +349,9 @@ public class SaleStepFragment {
         }
     }
 
-    public static class FifthStepFragment extends BaseFragment {
+    public static class FifthStepFragment extends BaseFragment implements SaleStepContract.View {
+
+        private SaleStepContract.Presenter mPresenter;
 
         @BindView(R.id.ok)
         Button ok;
@@ -368,6 +367,10 @@ public class SaleStepFragment {
         public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
                                  @Nullable Bundle savedInstanceState) {
             View view = super.onCreateView(inflater, container, savedInstanceState);
+
+            BookService bookService = new BookService(httpService);
+            mPresenter = new SaleStepPresenter(bookService);
+            mPresenter.attachView(this);
             return view;
         }
 
@@ -379,6 +382,38 @@ public class SaleStepFragment {
         @OnClick(R.id.ok)
         public void onOkClick() {
             HashMap<Book, Object> bookInfo = ((SaleWriteActivity)getActivity()).getBookInfo();
+            mPresenter.uploadSaleBook(bookInfo);
+        }
+
+        @Override
+        public void onDetach() {
+            super.onDetach();
+            mPresenter.detachView();
+        }
+
+        @Override
+        public void setPresenter(SaleStepContract.Presenter presenter) {
+
+        }
+
+        @Override
+        public void showProgress() {
+            super.showProgress();
+        }
+
+        @Override
+        public void hideProgress() {
+            super.hideProgress();
+        }
+
+        @Override
+        public void showToast(String title) {
+            super.showToast(title);
+        }
+
+        @Override
+        public void setSearch(String title) {
+
         }
     }
 }

@@ -31,6 +31,8 @@ import okhttp3.Response;
 
 /**
  * Created by choi on 2017. 8. 26..
+ * kakao token -> server ---------------------> android : firebase login -> firebase user token
+ *                 <-> firebase login token
  */
 
 public class NetworkInterceptor implements Interceptor {
@@ -44,11 +46,12 @@ public class NetworkInterceptor implements Interceptor {
         mPreferences = PreferenceManager.getDefaultSharedPreferences(context);
         refreshToken();
         mFirebaseUserToken = mPreferences.getString(Constants.FIREBASE_USER_TOKEN, null);
+        Log.e(TAG, mFirebaseUserToken);
     }
 
     @Override
     public Response intercept(@NonNull Chain chain) throws IOException {
-        Log.d("Add Token to Header", mFirebaseUserToken);
+        Log.d(TAG+" Add Token to Header", mFirebaseUserToken);
 
         Request request = chain.request();
         Request newRequest;
@@ -62,19 +65,26 @@ public class NetworkInterceptor implements Interceptor {
         FirebaseAuth mAuth;
         mAuth = FirebaseAuth.getInstance();
         FirebaseUser user = mAuth.getCurrentUser();
+
         if (user != null) {
             StringBuilder token = new StringBuilder();
             CountDownLatch countDownLatch = new CountDownLatch(1);
             user.getToken(true).addOnCompleteListener(new OnCompleteListener<GetTokenResult>() {
                 @Override
                 public void onComplete(@NonNull Task<GetTokenResult> task) {
-                    token.append(task.getResult().getToken());
-                    Log.d(TAG, String.valueOf(token));
-                    countDownLatch.countDown();
+                    if (task.isSuccessful()) {
+                        Log.e(TAG, "isSuccessful : "+task.getResult().getToken());
+                        token.append(task.getResult().getToken());
+                        Log.d(TAG, String.valueOf(token) + ", " + task);
+                        countDownLatch.countDown();
+                    } else {
+                        Log.e(TAG, "Token 실패");
+                    }
                 }
             });
             try {
                 countDownLatch.await(3L, TimeUnit.SECONDS);
+                Log.d(TAG, "refreshToken "+token);
                 SharedPreferences.Editor editor = mPreferences.edit();
                 editor.putString(Constants.FIREBASE_USER_TOKEN, String.valueOf(token));
                 editor.commit();

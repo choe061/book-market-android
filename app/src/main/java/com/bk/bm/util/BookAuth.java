@@ -9,9 +9,12 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.GetTokenResult;
 
+import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by choi on 2017. 8. 26..
@@ -38,10 +41,30 @@ public class BookAuth {
                                 public void run() {
                                     String loginToken = user.getToken(false).getResult().getToken();
                                     Log.d(TAG, "signInWithCustomLoginToken : "+loginToken);
-                                    SharedPreferences.Editor editor = preferences.edit();
-                                    editor.putString(Constants.FIREBASE_USER_TOKEN, String.valueOf(loginToken));
-                                    editor.apply();
-                                    callback.onSuccess(loginToken);
+
+                                    FirebaseAuth mAuth;
+                                    mAuth = FirebaseAuth.getInstance();
+                                    FirebaseUser user = mAuth.getCurrentUser();
+                                    StringBuilder token = new StringBuilder();
+                                    CountDownLatch countDownLatch = new CountDownLatch(1);
+                                    user.getToken(true).addOnCompleteListener(new OnCompleteListener<GetTokenResult>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<GetTokenResult> task) {
+                                            token.append(task.getResult().getToken());
+                                            Log.d(TAG, String.valueOf(token));
+                                            countDownLatch.countDown();
+                                        }
+                                    });
+                                    try {
+                                        countDownLatch.await(3L, TimeUnit.SECONDS);
+                                        SharedPreferences.Editor editor = preferences.edit();
+                                        editor.putString(Constants.FIREBASE_USER_TOKEN, String.valueOf(token));
+                                        editor.commit();
+                                    } catch (InterruptedException ie) {
+                                        Log.e("refreshToken Exception", String.valueOf(ie));
+                                    }
+
+                                    callback.onSuccess(token.toString());
                                 }
                             });
                         } else {

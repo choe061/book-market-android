@@ -21,6 +21,7 @@ public class Book implements Parcelable {
     private String isbn13;
     private String title;
     private int price;
+    private ArrayList<String> method;
     private ArrayList<String> area;
     private String status;
     private String comment;

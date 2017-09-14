@@ -1,5 +1,6 @@
 package com.bk.bm.view;
 
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -112,6 +113,7 @@ public class PurchaseWriteActivity extends BaseActivity {
             return true;
         } else if (id == android.R.id.home) {
             this.onBackPressed();
+            startActivity(new Intent());
             return true;
         }
 

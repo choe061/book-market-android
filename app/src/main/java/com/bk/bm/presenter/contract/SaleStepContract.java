@@ -2,6 +2,9 @@ package com.bk.bm.presenter.contract;
 
 import com.bk.bm.base.BaseAdapterContract;
 import com.bk.bm.base.BaseContract;
+import com.bk.bm.util.EventData;
+
+import java.util.HashMap;
 
 /**
  * Created by choi on 2017. 9. 4..
@@ -36,5 +39,7 @@ public interface SaleStepContract {
         void setAdapterView(BaseAdapterContract.View adapterView);
 
         void requestSearchBook(String bookId);
+
+        void uploadSaleBook(HashMap<EventData.Book, Object> bookInfo);
     }
 }

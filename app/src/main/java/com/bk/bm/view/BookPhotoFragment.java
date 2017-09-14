@@ -1,13 +1,17 @@
 package com.bk.bm.view;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,6 +30,7 @@ import butterknife.OnClick;
 public class BookPhotoFragment extends BaseFragment {
 
     private static final int MY_PERMISSIONS_CAMERA_CONTACTS = 1003;
+    private static int imageLocation = 0;
 
     @BindView(R.id.image1) ImageView image1;
     @BindView(R.id.image2) ImageView image2;
@@ -56,7 +61,20 @@ public class BookPhotoFragment extends BaseFragment {
 
     @OnClick({R.id.image1, R.id.image2, R.id.image3, R.id.image4, R.id.image5, R.id.image6})
     public void onImageClick() {
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        startActivityForResult(intent, MY_PERMISSIONS_CAMERA_CONTACTS);
+    }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == MY_PERMISSIONS_CAMERA_CONTACTS) {
+            try {
+                Bitmap bm = (Bitmap) data.getExtras().get("data");
+                Log.e("requestCode", String.valueOf(bm));
+                image1.setImageBitmap(bm);
+            } catch (NullPointerException ignore) {}
+        }
     }
 
     public void checkPermission() {
