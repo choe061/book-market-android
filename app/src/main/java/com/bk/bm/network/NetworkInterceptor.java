@@ -35,16 +35,16 @@ import okhttp3.Response;
  *                 <-> firebase login token
  */
 
-public class NetworkInterceptor implements Interceptor {
+public final class NetworkInterceptor implements Interceptor {
 
     private final String TAG = NetworkInterceptor.class.getName();
+    private final int HTTP_UNAUTHORIZED = 401;
     private String mFirebaseUserToken;
     private SharedPreferences mPreferences;
 
     public NetworkInterceptor(Application application) {
         Context context = application.getApplicationContext();
         mPreferences = PreferenceManager.getDefaultSharedPreferences(context);
-        refreshToken();
         mFirebaseUserToken = mPreferences.getString(Constants.FIREBASE_USER_TOKEN, null);
         Log.e(TAG, mFirebaseUserToken);
     }
@@ -54,21 +54,28 @@ public class NetworkInterceptor implements Interceptor {
         Log.d(TAG+" Add Token to Header", mFirebaseUserToken);
 
         Request request = chain.request();
-        Request newRequest;
-        newRequest = request.newBuilder()
+        Request newRequest = request.newBuilder()
                 .addHeader("mytoken", String.format("%s", mFirebaseUserToken))
                 .build();
-        return chain.proceed(newRequest);
+        Response response = chain.proceed(newRequest);
+        if (response.code() == HTTP_UNAUTHORIZED) {
+            refreshToken();
+            mFirebaseUserToken = mPreferences.getString(Constants.FIREBASE_USER_TOKEN, null);
+            newRequest = request.newBuilder()
+                    .addHeader("mytoken", String.format("%s", mFirebaseUserToken))
+                    .build();
+            return chain.proceed(newRequest);
+        }
+        return response;
     }
 
     private void refreshToken() {
         FirebaseAuth mAuth;
         mAuth = FirebaseAuth.getInstance();
         FirebaseUser user = mAuth.getCurrentUser();
-
         if (user != null) {
             StringBuilder token = new StringBuilder();
-            CountDownLatch countDownLatch = new CountDownLatch(1);
+            CountDownLatch countDownLatch = new CountDownLatch(3);
             user.getToken(true).addOnCompleteListener(new OnCompleteListener<GetTokenResult>() {
                 @Override
                 public void onComplete(@NonNull Task<GetTokenResult> task) {
@@ -83,8 +90,7 @@ public class NetworkInterceptor implements Interceptor {
                 }
             });
             try {
-                countDownLatch.await(3L, TimeUnit.SECONDS);
-                Log.d(TAG, "refreshToken "+token);
+                countDownLatch.await(10L, TimeUnit.SECONDS);
                 SharedPreferences.Editor editor = mPreferences.edit();
                 editor.putString(Constants.FIREBASE_USER_TOKEN, String.valueOf(token));
                 editor.commit();
