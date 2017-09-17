@@ -11,7 +11,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
 
 import com.bk.bm.R;
@@ -21,13 +20,13 @@ import com.bk.bm.model.domain.Book;
 import com.bk.bm.model.repository.api.BookService;
 import com.bk.bm.presenter.PurchasePresenter;
 import com.bk.bm.presenter.contract.PurchaseContract;
+import com.bk.bm.widget.OnDataListener;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestManager;
 
 import java.util.ArrayList;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
@@ -118,4 +117,5 @@ public class PurchaseFragment extends BaseFragment implements PurchaseContract.V
         intent.putExtra("book_uid", testBook); //제목과 매칭될 책 id만 넘길지 parcelable 구현해서 book을 넘길지
         startActivity(intent);
     }
+
 }

@@ -10,6 +10,7 @@ import com.bk.bm.R;
 import com.bk.bm.adapter.viewholder.BookViewHolder;
 import com.bk.bm.base.BaseAdapterContract;
 import com.bk.bm.model.domain.Book;
+import com.bk.bm.view.MainActivity;
 import com.bk.bm.widget.OnBookClickListener;
 import com.bumptech.glide.RequestManager;
 
@@ -36,7 +37,7 @@ public class BookRecyclerViewAdapter extends RecyclerView.Adapter<BookViewHolder
     @Override
     public BookViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
         View view = LayoutInflater.from(mContext).inflate(R.layout.rv_book_item, viewGroup, false);
-        return new BookViewHolder(view);
+        return new BookViewHolder(view, ((MainActivity) mContext).getSupportFragmentManager());
     }
 
     @Override
@@ -47,6 +48,7 @@ public class BookRecyclerViewAdapter extends RecyclerView.Adapter<BookViewHolder
                 onBookClick.onBookClick(v, position);
             }
         });
+//        bookViewHolder.itemView.setTag(position, mBooks.get(position));
     }
 
     @Override

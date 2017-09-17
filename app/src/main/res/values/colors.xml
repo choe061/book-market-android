@@ -6,8 +6,10 @@
 
     <color name="blue_100">#1694f2</color>
     <color name="bule_200">#209cff</color>
-    
+
+    <color name="gray_800">#89000000</color>
     <color name="gray_1200">#c4c4c4</color>
+    <color name="gray_160">#16000000</color>
 
     <color name="black_1500">#f7000000</color>
 </resources>

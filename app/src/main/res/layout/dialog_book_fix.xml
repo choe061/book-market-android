@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="96dp"
+    android:orientation="vertical"
+    android:background="@drawable/image_radius">
+
+
+    <Button
+        android:id="@+id/fix"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:text="수정하기"
+        android:textSize="14sp"
+        android:textColor="@color/black_1500"
+        android:background="@android:color/transparent"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/gray_160"/>
+
+    <Button
+        android:id="@+id/remove"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:text="삭제하기"
+        android:textSize="14sp"
+        android:textColor="@color/black_1500"
+        android:background="@android:color/transparent"/>
+
+</LinearLayout>

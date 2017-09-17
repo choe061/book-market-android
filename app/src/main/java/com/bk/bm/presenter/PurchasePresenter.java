@@ -1,6 +1,5 @@
 package com.bk.bm.presenter;
 
-import android.util.Log;
 import android.view.View;
 
 import com.bk.bm.base.BaseAdapterContract;
