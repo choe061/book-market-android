@@ -108,6 +108,7 @@ public class SaleStepPresenter implements SaleStepContract.Presenter, OnBookClic
             @Override
             public void onSuccess(Response<Void> model) {
                 mView.hideProgress();
+                mView.redirectMainActivity();
                 Log.d(TAG, String.valueOf(model));
             }
 

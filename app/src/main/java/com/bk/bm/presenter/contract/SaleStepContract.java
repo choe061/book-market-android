@@ -25,6 +25,8 @@ public interface SaleStepContract {
         void showToast(String title);
 
         void setSearch(String title);
+
+        void redirectMainActivity();
     }
 
     interface Presenter extends BaseContract.BasePresenter<View> {

@@ -37,7 +37,6 @@ import butterknife.OnClick;
 public class PurchaseFragment extends BaseFragment implements PurchaseContract.View {
 
     @BindView(R.id.book_tv) TextView mBookTextView;
-    @BindView(R.id.write) Button mWrite;
     @BindView(R.id.book_list) RecyclerView mBookRecyclerView;
     @BindView(R.id.fab_write) FloatingActionButton mFabWirte;
 
@@ -86,7 +85,7 @@ public class PurchaseFragment extends BaseFragment implements PurchaseContract.V
         mPresenter.detachView();
     }
 
-    @OnClick({R.id.write, R.id.fab_write})
+    @OnClick({R.id.fab_write})
     public void startActivityToWrite() {
         startActivity(new Intent(getContext(), PurchaseWriteActivity.class));
     }

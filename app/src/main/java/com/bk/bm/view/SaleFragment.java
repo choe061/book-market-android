@@ -24,7 +24,6 @@ import butterknife.OnClick;
 public class SaleFragment extends BaseFragment {
 
     @BindView(R.id.book_tv) TextView bookTextView;
-    @BindView(R.id.write) Button write;
 
     public static Fragment newInstance() {
         Fragment fragment = new SaleFragment();
@@ -51,7 +50,7 @@ public class SaleFragment extends BaseFragment {
         bookTextView.setText("팔고싶은 책을 등록해보세요!\n췕84가 매칭시켜드립니다");
     }
 
-    @OnClick({R.id.write, R.id.fab_write})
+    @OnClick({R.id.fab_write})
     public void startActivityToWrite() {
         startActivity(new Intent(getContext(), SaleWriteActivity.class));
     }

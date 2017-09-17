@@ -163,6 +163,10 @@ public class SaleStepFragment {
         public void setSearch(String title) {
             this.search.setText(title);
         }
+
+        @Override
+        public void redirectMainActivity() {
+        }
     }
 
     public static class SecondStepFragment extends BaseFragment {
@@ -412,8 +416,13 @@ public class SaleStepFragment {
         }
 
         @Override
-        public void setSearch(String title) {
+        public void redirectMainActivity() {
+            startActivity(new Intent(getActivity(), MainActivity.class));
+            getActivity().finish();
+        }
 
+        @Override
+        public void setSearch(String title) {
         }
     }
 }

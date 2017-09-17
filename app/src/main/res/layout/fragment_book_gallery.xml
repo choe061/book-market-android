@@ -36,7 +36,7 @@
             android:layout_height="90dp"
             android:layout_weight="1"
             app:srcCompat="@mipmap/ic_camera"
-            android:background="@drawable/book_box"
+            android:background="@drawable/comment_box"
             android:layout_margin="5dp"/>
 
         <ImageView
@@ -45,7 +45,7 @@
             android:layout_height="90dp"
             android:layout_weight="1"
             app:srcCompat="@mipmap/ic_camera"
-            android:background="@drawable/book_box"
+            android:background="@drawable/comment_box"
             android:layout_margin="5dp"/>
 
         <ImageView
@@ -54,7 +54,7 @@
             android:layout_height="90dp"
             android:layout_weight="1"
             app:srcCompat="@mipmap/ic_camera"
-            android:background="@drawable/book_box"
+            android:background="@drawable/comment_box"
             android:layout_margin="5dp"/>
     </LinearLayout>
 
@@ -71,7 +71,7 @@
             android:layout_height="90dp"
             android:layout_weight="1"
             app:srcCompat="@mipmap/ic_camera"
-            android:background="@drawable/book_box"
+            android:background="@drawable/comment_box"
             android:layout_margin="5dp" />
 
         <ImageView
@@ -80,7 +80,7 @@
             android:layout_height="90dp"
             android:layout_weight="1"
             app:srcCompat="@mipmap/ic_camera"
-            android:background="@drawable/book_box"
+            android:background="@drawable/comment_box"
             android:layout_margin="5dp"/>
 
         <ImageView
@@ -89,7 +89,7 @@
             android:layout_height="90dp"
             android:layout_weight="1"
             app:srcCompat="@mipmap/ic_camera"
-            android:background="@drawable/book_box"
+            android:background="@drawable/comment_box"
             android:layout_margin="5dp"/>
     </LinearLayout>
 </LinearLayout>
