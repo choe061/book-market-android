@@ -4,11 +4,19 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
 
+    <color name="start">#1592f1</color>
+    <color name="center">#3cb7e1</color>
+    <color name="end">#15e6ea</color>
+
+    <color name="white">#ffffff</color>
+
     <color name="blue_100">#1694f2</color>
-    <color name="bule_200">#209cff</color>
+    <color name="blue_200">#209cff</color>
 
     <color name="gray_800">#89000000</color>
+    <color name="gray_990">#99000000</color>
     <color name="gray_1200">#c4c4c4</color>
+    <color name="gray_1300">#dd000000</color>
     <color name="gray_160">#16000000</color>
 
     <color name="black_1500">#f7000000</color>

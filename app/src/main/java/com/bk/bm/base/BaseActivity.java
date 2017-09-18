@@ -1,14 +1,21 @@
 package com.bk.bm.base;
 
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -46,6 +53,7 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
+        setStatusBackground();
         super.onCreate(savedInstanceState);
         setContentView(getLayoutResource());
         ButterKnife.bind(this);
@@ -55,6 +63,18 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     protected abstract @LayoutRes int getLayoutResource();
+
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    private void setStatusBackground() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            Window window = this.getWindow();
+            Drawable background = ContextCompat.getDrawable(this, R.drawable.book_background);
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            window.setStatusBarColor(ContextCompat.getColor(this, android.R.color.transparent));
+            window.setNavigationBarColor(ContextCompat.getColor(this, android.R.color.transparent));
+            window.setBackgroundDrawable(background);
+        }
+    }
 
     public void setDisplayHomeEnabled(boolean enabled) {
         setSupportActionBar(toolbar);

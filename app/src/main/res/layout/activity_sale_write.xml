@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/white"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".view.PurchaseWriteActivity">
@@ -17,7 +18,7 @@
         android:layout_height="?attr/actionBarSize"
         android:orientation="horizontal"
         android:layout_below="@+id/toolbar_layout"
-        android:background="@color/colorPrimary">
+        android:background="@drawable/book_background">
 
         <Button
             android:id="@+id/enroll"

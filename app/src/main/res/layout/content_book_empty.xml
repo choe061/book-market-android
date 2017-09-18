@@ -36,6 +36,6 @@
         android:src="@drawable/add"
         app:fabSize="normal"
         app:layout_behavior="com.bk.bm.widget.ScrollAwareFABBehavior"
-        app:backgroundTint="@color/bule_200" />
+        app:backgroundTint="@color/blue_200" />
 
 </RelativeLayout>

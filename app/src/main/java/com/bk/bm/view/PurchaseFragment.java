@@ -63,6 +63,7 @@ public class PurchaseFragment extends BaseFragment implements PurchaseContract.V
         mPresenter.attachView(this);
         mPresenter.setAdapterModel(adapter);
         mPresenter.setAdapterView(adapter);
+
         return view;
     }
 
@@ -84,7 +85,7 @@ public class PurchaseFragment extends BaseFragment implements PurchaseContract.V
         mPresenter.detachView();
     }
 
-    @OnClick({R.id.fab_write})
+    @OnClick(R.id.fab_write)
     public void startActivityToWrite() {
         startActivity(new Intent(getContext(), PurchaseWriteActivity.class));
     }
