@@ -7,25 +7,26 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="46dp"
         android:gravity="center"
-        android:textSize="20sp"
+        android:textSize="28sp"
+        android:textColor="@color/gray_1300"
         android:text="가격 등록"/>
 
     <TextView
         android:id="@+id/price_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="2dp"
         android:gravity="center"
-        android:textSize="12sp"
-        android:text="사고 싶은 책의 가격을 설정해주세요"/>
+        android:textSize="17sp"
+        android:text="사고 싶은 책의 가격을\n설정해주세요"/>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="46dp"
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp">
 
@@ -33,7 +34,8 @@
             android:id="@+id/min_price_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="15sp"
+            android:textSize="16sp"
+            android:textColor="@color/black_1500"
             android:text="구입가 최저"/>
 
         <EditText
@@ -41,15 +43,27 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:inputType="number"/>
+            android:gravity="right"
+            android:background="@android:color/transparent"
+            android:inputType="number"
+            android:textSize="16sp"
+            android:textColor="@color/black_1500"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="15sp"
+            android:textSize="16sp"
+            android:textColor="@color/black_1500"
             android:text="원"/>
 
     </LinearLayout>
+    
+    <TextView
+        android:layout_width="280dp"
+        android:layout_height="1dp"
+        android:layout_marginTop="14dp"
+        android:layout_gravity="center"
+        android:background="@color/gray_160"/>
 
     <LinearLayout
         android:id="@+id/max_layout"
@@ -63,7 +77,8 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="15sp"
+            android:textSize="16sp"
+            android:textColor="@color/black_1500"
             android:text="구입가 최고"/>
 
         <EditText
@@ -71,14 +86,27 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:inputType="number"/>
+            android:gravity="right"
+            android:background="@android:color/transparent"
+            android:inputType="number"
+            android:textSize="16sp"
+            android:textColor="@color/black_1500"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="15sp"
+            android:textSize="16sp"
+            android:textColor="@color/black_1500"
             android:text="원"/>
 
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/max_line"
+        android:layout_width="280dp"
+        android:layout_height="1dp"
+        android:layout_marginTop="14dp"
+        android:layout_gravity="center"
+        android:background="@color/gray_160" />
 
 </LinearLayout>

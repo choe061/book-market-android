@@ -7,28 +7,34 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="46dp"
         android:gravity="center"
-        android:textSize="20sp"
+        android:textSize="28sp"
+        android:textColor="@color/gray_1300"
         android:text="추가 입력"/>
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="2dp"
         android:gravity="center"
-        android:textSize="12sp"
-        android:text="혹시 따로 하고 싶은 말이 있으신가요?"/>
+        android:textSize="17sp"
+        android:textColor="@color/gray_800"
+        android:text="도서상태, 시간, 요구사항 등 혹시 따로\n하고 싶은 말 있으신가요?"/>
 
     <EditText
         android:id="@+id/comment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
+        android:layout_marginTop="46dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:layout_marginBottom="40dp"
+        android:background="@drawable/book_box"
         android:gravity="top"
-        android:background="@drawable/comment_box"
         android:lines="15"
-        android:padding="10dp"/>
+        android:padding="10dp"
+        android:textSize="16sp"
+        android:textColor="@color/gray_1300"/>
+
 </LinearLayout>

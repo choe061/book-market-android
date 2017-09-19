@@ -10,6 +10,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.Button;
 
 import com.bk.bm.R;
+import com.bk.bm.util.BookUtils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -23,6 +24,7 @@ public class AreaSelectActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
+        BookUtils.setStatusBackground(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_area_select);
         ButterKnife.bind(this);

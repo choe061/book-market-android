@@ -53,7 +53,7 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
-        setStatusBackground();
+        BookUtils.setStatusBackground(this);
         super.onCreate(savedInstanceState);
         setContentView(getLayoutResource());
         ButterKnife.bind(this);
@@ -63,18 +63,6 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     protected abstract @LayoutRes int getLayoutResource();
-
-    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    private void setStatusBackground() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            Window window = this.getWindow();
-            Drawable background = ContextCompat.getDrawable(this, R.drawable.book_background);
-            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-            window.setStatusBarColor(ContextCompat.getColor(this, android.R.color.transparent));
-            window.setNavigationBarColor(ContextCompat.getColor(this, android.R.color.transparent));
-            window.setBackgroundDrawable(background);
-        }
-    }
 
     public void setDisplayHomeEnabled(boolean enabled) {
         setSupportActionBar(toolbar);

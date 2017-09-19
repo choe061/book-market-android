@@ -7,18 +7,19 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="46dp"
         android:gravity="center"
-        android:textSize="20sp"
-        android:text="거래 형태"/>
+        android:textSize="28sp"
+        android:textColor="@color/gray_1300"
+        android:text="거래 유형"/>
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="2dp"
         android:gravity="center"
-        android:textSize="12sp"
-        android:text="원하는 거래 형태를 선택해주세요"/>
+        android:textSize="17sp"
+        android:text="원하는 거래유형를 선택해주세요\n(중복선택 가능)"/>
 
     <LinearLayout
         android:layout_width="wrap_content"

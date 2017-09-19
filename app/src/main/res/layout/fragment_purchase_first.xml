@@ -8,28 +8,32 @@
         android:id="@+id/main_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="46dp"
         android:gravity="center"
-        android:textSize="20sp"
+        android:textSize="28sp"
+        android:textColor="@color/gray_1300"
         android:text="사고 싶은 책 등록"/>
 
     <TextView
         android:id="@+id/sub_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="2dp"
         android:gravity="center"
-        android:textSize="12sp"
-        android:text="사고 싶은 책의 이름이나, 책 고유번호\n(ISBN)을 입력해주세요!"/>
+        android:textSize="17sp"
+        android:text="사고 싶은 책의 이름이나,\n책 고유번호(ISBN)을 입력해주세요!"/>
 
     <EditText
         android:id="@+id/search_book"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
-        android:drawableLeft="@android:drawable/ic_menu_search"/>
+        android:layout_width="280dp"
+        android:layout_height="56dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="46dp"
+        android:background="@drawable/search_box"
+        android:hint="도서명 혹은 고유번호 입력"
+        android:textColorHint="@color/gray_800"
+        android:drawableLeft="@android:drawable/ic_menu_search"
+        android:drawableRight="@android:drawable/ic_delete"/>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/search_book_result"

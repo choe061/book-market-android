@@ -12,11 +12,13 @@
         android:id="@+id/main_tab_layout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:background="@drawable/book_background"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:background="@drawable/book_background"
+        app:tabIndicatorHeight="0dp"
         app:tabGravity="fill"
+        app:tabSelectedTextColor="@android:color/black"
         app:tabIndicatorColor="@android:color/white"
         app:tabTextColor="@android:color/white">
 

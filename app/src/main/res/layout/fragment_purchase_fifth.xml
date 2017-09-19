@@ -2,51 +2,60 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center"
     android:orientation="vertical">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:textSize="20sp"
+        android:layout_marginTop="46dp"
+        android:textSize="28sp"
+        android:textColor="@color/gray_1300"
         android:text="완료"/>
 
     <ImageView
         android:id="@+id/img"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="22dp"
         android:src="@drawable/ic_menu_gallery"/>
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="25dp"
         android:gravity="center"
-        android:textSize="12sp"
-        android:text="등록해주셔서 감사합니다!\n매칭되면 푸시 알림으로\n알려 드립니다"/>
+        android:textSize="16sp"
+        android:textColor="@color/black"
+        android:text="등록해주셔서 감사합니다!\n매칭되면 푸시 알림으로 알려 드립니다"/>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_marginTop="30dp"
-        android:paddingLeft="30dp"
-        android:paddingRight="30dp">
+        android:layout_marginTop="22dp"
+        android:paddingLeft="47dp"
+        android:paddingRight="47dp">
 
         <Button
             android:id="@+id/ok"
-            android:layout_width="match_parent"
+            android:layout_width="130dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:background="@drawable/book_button"
+            android:layout_marginRight="3dp"
+            android:textColor="@color/white"
+            android:textSize="14sp"
             android:text="확인"/>
 
         <Button
             android:id="@+id/on_push_alarm"
-            android:layout_width="match_parent"
+            android:layout_width="130dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:background="@drawable/book_button"
+            android:layout_marginLeft="3dp"
+            android:textColor="@color/white"
+            android:textSize="14sp"
             android:text="푸시 알림 켜기"/>
 
     </LinearLayout>

@@ -4,14 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:showIn="navigation_view">
 
-    <group android:checkableBehavior="single">
-        <item
-            android:id="@+id/logout"
-            android:icon="@drawable/ic_menu_manage"
-            android:title="로그아웃" />
-    </group>
-
-    <item android:title="알림 설정">
+    <item android:title="알림설정">
         <menu>
             <item
                 android:id="@+id/alarm_at_once"
@@ -26,4 +19,11 @@
                 android:title="매칭 알람 실시간으로 받기" />
         </menu>
     </item>
+
+    <group>
+        <item
+            android:id="@+id/logout"
+            android:title="로그아웃" />
+    </group>
+
 </menu>
