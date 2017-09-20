@@ -23,7 +23,7 @@ import butterknife.OnClick;
 
 public class BookFixDialog extends DialogFragment {
 
-    private OnDataListener onDataListener;
+    private OnDataListener mOnDataListener;
 
     @NonNull
     @Override
@@ -53,7 +53,7 @@ public class BookFixDialog extends DialogFragment {
     @OnClick(R.id.fix)
     public void onFixClick() {
         if (getDialog() != null) {
-            onDataListener.onDataReceived(BookFixDialog.this);
+            mOnDataListener.onDataReceived(BookFixDialog.this);
             getDialog().dismiss();
         }
     }
@@ -61,13 +61,13 @@ public class BookFixDialog extends DialogFragment {
     @OnClick(R.id.remove)
     public void onRemoveClick() {
         if (getDialog() != null) {
-            onDataListener.onDataReceived(BookFixDialog.this);
+            mOnDataListener.onDataReceived(BookFixDialog.this);
             getDialog().dismiss();
         }
     }
 
-    public void setOnDataListener(OnDataListener onDataListener) {
-        this.onDataListener = onDataListener;
+    public void setOnDataListener(OnDataListener mOnDataListener) {
+        this.mOnDataListener = mOnDataListener;
     }
 
     @Override

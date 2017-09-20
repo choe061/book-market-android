@@ -62,10 +62,9 @@ public class BookService {
         });
     }
 
-    public Disposable uploadSaleBook(Book book, ApiCallback<Response<Void>> callback) {
+    public Observable<Response<Void>> uploadSaleBook(Book book) {
         Observable<Response<Void>> enrollBook = httpService.enrollSaleBook(book);
         return enrollBook.subscribeOn(Schedulers.newThread())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(reponse -> callback.onSuccess(reponse), throwable -> callback.onError(throwable.getMessage()));
+                .observeOn(AndroidSchedulers.mainThread());
     }
 }

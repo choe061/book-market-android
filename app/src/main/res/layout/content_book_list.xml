@@ -23,6 +23,7 @@
         android:src="@drawable/add"
         android:clickable="true"
         android:onClick="startActivityToWrite"
+        app:layout_behavior="com.bk.bm.widget.ScrollAwareFABBehavior"
         app:backgroundTint="@color/blue_200"
         app:fabSize="normal"
         app:layout_anchor="@id/book_list"

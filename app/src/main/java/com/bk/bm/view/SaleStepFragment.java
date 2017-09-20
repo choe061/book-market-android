@@ -71,8 +71,8 @@ public class SaleStepFragment {
         private SaleStepContract.Presenter mPresenter;
 
         @BindView(R.id.main_title) TextView mainTitle;
-        @BindView(R.id.sub_title) TextView subTitle;
-        @BindView(R.id.search_book) EditText search;
+        @BindView(R.id.sub_title) TextView mSubTitle;
+        @BindView(R.id.search_book) EditText mSearch;
         @BindView(R.id.search_book_result) RecyclerView mSearchBookRecyclerView;
 
         public static Fragment newInstance() {
@@ -93,7 +93,7 @@ public class SaleStepFragment {
                                  @Nullable Bundle savedInstanceState) {
             View view = super.onCreateView(inflater, container, savedInstanceState);
             mainTitle.setText("팔고 싶은 책 등록");
-            subTitle.setText("팔고 싶은 책의 이름이나, 책 고유번호\nISBN(바코드번호)을 입력해주세요!");
+            mSubTitle.setText("팔고 싶은 책의 이름이나, 책 고유번호\nISBN(바코드번호)을 입력해주세요!");
 
             SearchBookRecyclerViewAdapter adapter = new SearchBookRecyclerViewAdapter(getContext());
             mSearchBookRecyclerView.setAdapter(adapter);
@@ -105,12 +105,12 @@ public class SaleStepFragment {
             mPresenter.setAdapterModel(adapter);
             mPresenter.setAdapterView(adapter);
 
-            search.setOnKeyListener(new View.OnKeyListener() {
+            mSearch.setOnKeyListener(new View.OnKeyListener() {
                 @Override
                 public boolean onKey(View v, int keyCode, KeyEvent event) {
                     if ((event.getAction() == KeyEvent.ACTION_DOWN)
                             && (keyCode == KeyEvent.KEYCODE_ENTER)) {
-                        String bookId = search.getText().toString();
+                        String bookId = mSearch.getText().toString();
                         mPresenter.requestSearchBook(bookId);
                         return true;
                     }
@@ -161,7 +161,7 @@ public class SaleStepFragment {
 
         @Override
         public void setSearch(String title) {
-            this.search.setText(title);
+            this.mSearch.setText(title);
         }
 
         @Override

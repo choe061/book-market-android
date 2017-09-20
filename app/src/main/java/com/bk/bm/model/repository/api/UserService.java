@@ -30,11 +30,9 @@ public class UserService {
                         throwable -> callback.onError(throwable.getMessage()));
     }
 
-    public Disposable sendUserInfo(User user, ApiCallback<Response<JsonObject>> callback) {
+    public Observable<Response<JsonObject>> sendUserInfo(User user) {
         Observable<Response<JsonObject>> sendUser = httpService.sendUserInfo(user);
         return sendUser.subscribeOn(Schedulers.newThread())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(response -> callback.onSuccess(response),
-                        throwable -> callback.onError(throwable.getMessage()));
+                .observeOn(AndroidSchedulers.mainThread());
     }
 }

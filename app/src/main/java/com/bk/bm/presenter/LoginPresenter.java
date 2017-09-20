@@ -188,36 +188,18 @@ public class LoginPresenter implements LoginContract.Presenter {
         });
     }
 
-    //TODO FCM이 아니라 유저 토큰
-    //TODO 이 메소드 전체가 MainActivity로 가도 될 듯
+    //TODO 이 메소드 Main으로 옮기기
     private void updateFcmToken(String fcm_token) {
         User user = new User();
         user.setFcm_token(fcm_token);
-        Disposable disposable = userService.sendUserInfo(user, new ApiCallback<Response<JsonObject>>() {
-            @Override
-            public void onSuccess(Response<JsonObject> model) {
-                Log.d(TAG, "updateFcmToken Success : "+model.body().get("message"));
-                view.redirectMainActivity();
-            }
-
-            @Override
-            public void onError(String msg) {
-                //TODO fcm token을 보내지 못했을 경우 처리
-                Log.e(TAG, "updateFcmToken Error : "+ msg);
-                view.redirectMainActivity();
-            }
-        });
+        Disposable disposable = userService.sendUserInfo(user)
+                .subscribe(response -> {
+                    Log.d(TAG, "updateFcmToken Success : "+response.body().get("message"));
+                    view.redirectMainActivity();
+                }, throwable -> {
+                    Log.e(TAG, "updateFcmToken Error : "+ throwable.getMessage());
+                    view.redirectMainActivity();
+                });
         mCompositeDisposable.add(disposable);
-    }
-
-    String post(String url, String json) throws IOException {
-        OkHttpClient client = new OkHttpClient();
-        RequestBody body = RequestBody.create(Constants.JSON, json);
-        Request request = new Request.Builder()
-                .url(url)
-                .post(body)
-                .build();
-        okhttp3.Response response = client.newCall(request).execute();
-        return response.body().string();
     }
 }

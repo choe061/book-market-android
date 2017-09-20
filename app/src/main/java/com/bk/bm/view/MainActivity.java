@@ -61,14 +61,9 @@ public class MainActivity extends BaseActivity
             }
 
             @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-
-            }
-
+            public void onTabUnselected(TabLayout.Tab tab) {}
             @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-
-            }
+            public void onTabReselected(TabLayout.Tab tab) {}
         });
 
         Menu menu = mNavigationView.getMenu();
@@ -115,7 +110,6 @@ public class MainActivity extends BaseActivity
     }
 
     public void startActivityToWrite(View view) {
-        Log.e(TAG, "awefawef");
         startActivity(new Intent(this, PurchaseWriteActivity.class));
     }
 

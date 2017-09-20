@@ -36,16 +36,16 @@ public class SaleWriteActivity extends BaseActivity {
     private ArrayList<Fragment> mStepFragments = new ArrayList<>();
     private HashMap<Book, Object> mBookInfo = new HashMap<>();
 
-    @BindView(R.id.step) AppCompatSeekBar step;
-    @BindView(R.id.enroll) Button enroll;
-    @BindView(R.id.detail) Button detail;
-    @BindView(R.id.success) Button success;
+    @BindView(R.id.step) AppCompatSeekBar mStep;
+    @BindView(R.id.enroll) Button mEnroll;
+    @BindView(R.id.detail) Button mDetail;
+    @BindView(R.id.success) Button mSuccess;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setTitle("글쓰기");
-        step.setPadding(0, 0, 0, 0);
+        mStep.setPadding(0, 0, 0, 0);
 
         mStepFragments = SaleStepFragment.newInstances();
         startFragmentInstance(mStepFragments.get(0), 16);
@@ -127,9 +127,9 @@ public class SaleWriteActivity extends BaseActivity {
 //                .addToBackStack(null)
                 .commit();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            step.setProgress(progressStep, true);
+            mStep.setProgress(progressStep, true);
         } else {
-            step.setProgress(progressStep);
+            mStep.setProgress(progressStep);
         }
     }
 

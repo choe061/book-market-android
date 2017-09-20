@@ -20,7 +20,10 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
+import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 import retrofit2.Response;
 
 /**
@@ -107,23 +110,16 @@ public class SaleStepPresenter implements SaleStepContract.Presenter, OnBookClic
         book.setIsbn13(String.valueOf(bookInfo.get(EventData.Book.ISBN_13)));
         book.setTitle(String.valueOf(bookInfo.get(EventData.Book.TITLE)));
         book.setPrice(Integer.parseInt(String.valueOf(bookInfo.get(EventData.Book.MIN_PRICE))));
-//        List<String> images = new ArrayList<>();
-//        Collections.copy(images, (ArrayList<String>)bookInfo.get(EventData.Book.IMAGE));
-//        book.setImage((ArrayList) bookInfo.get(EventData.Book.IMAGE));
-        mBookService.uploadSaleBook(book, new ApiCallback<Response<Void>>() {
-            @Override
-            public void onSuccess(Response<Void> model) {
-                mView.hideProgress();
-                mView.redirectMainActivity();
-                Log.d(TAG, String.valueOf(model));
-            }
-
-            @Override
-            public void onError(String msg) {
-                mView.hideProgress();
-                Log.e(TAG, msg);
-            }
-        });
+        Disposable disposable = mBookService.uploadSaleBook(book)
+                .subscribe(response -> {
+                    mView.hideProgress();
+                    mView.redirectMainActivity();
+                    Log.d(TAG, String.valueOf(response));
+                }, throwable -> {
+                    mView.hideProgress();
+                    Log.e(TAG, throwable.getMessage());
+                });
+        mCompositeDisposable.add(disposable);
     }
 
     @Override

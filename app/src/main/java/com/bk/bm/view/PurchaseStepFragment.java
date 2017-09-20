@@ -62,7 +62,7 @@ public class PurchaseStepFragment {
     public static class FirstStepFragment extends BaseFragment implements PurchaseStepContract.View {
 
         private PurchaseStepContract.Presenter mPresenter;
-        @BindView(R.id.search_book) EditText search;
+        @BindView(R.id.search_book) EditText mSearch;
         @BindView(R.id.search_book_result) RecyclerView mSearchBookRecyclerView;
 
         public static Fragment newInstance() {
@@ -93,12 +93,12 @@ public class PurchaseStepFragment {
             mPresenter.setAdapterModel(adapter);
             mPresenter.setAdapterView(adapter);
 
-            search.setOnKeyListener(new View.OnKeyListener() {
+            mSearch.setOnKeyListener(new View.OnKeyListener() {
                 @Override
                 public boolean onKey(View v, int keyCode, KeyEvent event) {
                     if ((event.getAction() == KeyEvent.ACTION_DOWN)
                             && (keyCode == KeyEvent.KEYCODE_ENTER)) {
-                        String bookId = search.getText().toString();
+                        String bookId = mSearch.getText().toString();
                         mPresenter.requestSearchBook(bookId);
                         return true;
                     }
@@ -147,7 +147,7 @@ public class PurchaseStepFragment {
 
         @Override
         public void setSearch(String title) {
-            this.search.setText(title);
+            this.mSearch.setText(title);
         }
     }
 

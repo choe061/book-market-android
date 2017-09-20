@@ -23,7 +23,7 @@ import butterknife.OnClick;
 
 public class SaleFragment extends BaseFragment {
 
-    @BindView(R.id.book_tv) TextView bookTextView;
+    @BindView(R.id.book_tv) TextView mBookTextView;
 
     public static Fragment newInstance() {
         Fragment fragment = new SaleFragment();
@@ -47,7 +47,7 @@ public class SaleFragment extends BaseFragment {
     @Override
     public void onResume() {
         super.onResume();
-        bookTextView.setText("팔고싶은 책을 등록해보세요!\n췕84가 매칭시켜드립니다");
+        mBookTextView.setText("팔고싶은 책을 등록해보세요!\n췕84가 매칭시켜드립니다");
     }
 
     @OnClick({R.id.fab_write})

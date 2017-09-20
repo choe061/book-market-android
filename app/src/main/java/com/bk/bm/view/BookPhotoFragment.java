@@ -30,14 +30,14 @@ import butterknife.OnClick;
 public class BookPhotoFragment extends BaseFragment {
 
     private static final int MY_PERMISSIONS_CAMERA_CONTACTS = 1003;
-    private static int imageLocation = 0;
+    private static int mImageLocation = 0;
 
-    @BindView(R.id.image1) ImageView image1;
-    @BindView(R.id.image2) ImageView image2;
-    @BindView(R.id.image3) ImageView image3;
-    @BindView(R.id.image4) ImageView image4;
-    @BindView(R.id.image5) ImageView image5;
-    @BindView(R.id.image6) ImageView image6;
+    @BindView(R.id.image1) ImageView mImage1;
+    @BindView(R.id.image2) ImageView mImage2;
+    @BindView(R.id.image3) ImageView mImage3;
+    @BindView(R.id.image4) ImageView mImage4;
+    @BindView(R.id.image5) ImageView mImage5;
+    @BindView(R.id.image6) ImageView mImage6;
 
     public static Fragment newInstance() {
         Fragment fragment = new BookPhotoFragment();
@@ -72,7 +72,7 @@ public class BookPhotoFragment extends BaseFragment {
             try {
                 Bitmap bm = (Bitmap) data.getExtras().get("data");
                 Log.e("requestCode", String.valueOf(bm));
-                image1.setImageBitmap(bm);
+                mImage1.setImageBitmap(bm);
             } catch (NullPointerException ignore) {}
         }
     }
