@@ -18,7 +18,7 @@
         android:layout_height="?attr/actionBarSize"
         android:orientation="horizontal"
         android:layout_below="@+id/toolbar_layout"
-        android:background="@color/colorPrimary">
+        android:background="@drawable/book_background">
 
         <Button
             android:id="@+id/enroll"

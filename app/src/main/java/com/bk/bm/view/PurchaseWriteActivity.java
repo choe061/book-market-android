@@ -113,7 +113,6 @@ public class PurchaseWriteActivity extends BaseActivity {
             return true;
         } else if (id == android.R.id.home) {
             this.onBackPressed();
-            startActivity(new Intent());
             return true;
         }
 

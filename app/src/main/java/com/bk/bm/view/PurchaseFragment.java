@@ -9,6 +9,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -28,6 +29,7 @@ import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import butterknife.OnTouch;
 
 /**
  * Created by choi on 2017. 8. 19..
@@ -39,6 +41,7 @@ public class PurchaseFragment extends BaseFragment implements PurchaseContract.V
     @BindView(R.id.book_list) RecyclerView mBookRecyclerView;
     @BindView(R.id.fab_write) FloatingActionButton mFabWirte;
 
+    private static final String TAG = PurchaseFragment.class.getName();
     private PurchaseContract.Presenter mPresenter;
 
     public static Fragment newInstance() {
@@ -83,11 +86,6 @@ public class PurchaseFragment extends BaseFragment implements PurchaseContract.V
     public void onDestroy() {
         super.onDestroy();
         mPresenter.detachView();
-    }
-
-    @OnClick(R.id.fab_write)
-    public void startActivityToWrite() {
-        startActivity(new Intent(getContext(), PurchaseWriteActivity.class));
     }
 
     @Override

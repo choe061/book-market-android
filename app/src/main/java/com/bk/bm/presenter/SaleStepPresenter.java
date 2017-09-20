@@ -15,6 +15,7 @@ import com.bk.bm.view.SaleStepFragment;
 import com.bk.bm.widget.OnBookClickListener;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -72,12 +73,17 @@ public class SaleStepPresenter implements SaleStepContract.Presenter, OnBookClic
         mBookService.requestSearchBook(bookId, new ApiCallback<Response<BookList>>() {
             @Override
             public void onSuccess(Response<BookList> model) {
-                Log.d(TAG, "requestSearchBook onSuccess : "+model);
+                Log.d(TAG, "requestSearchBook http response : "+model);
                 Log.d(TAG, "requestSearchBook onSuccess : "+String.valueOf(model.body()));
                 ArrayList<BookList.BookInfo> bookInfos = model.body().getItems();
                 if (!bookInfos.isEmpty()) {
                     mAdapterModel.addItems(bookInfos);
                     mAdapterView.notifyAdapter();
+
+                    String[] isbns = getIsbnCodes(bookInfos.get(0).getVolumeInfo().getIndustryIdentifiers());
+                    publishData(isbns[0], isbns[1],
+                            bookInfos.get(0).getVolumeInfo().getTitle(),
+                            bookInfos.get(0).getVolumeInfo().getImageLinks());
                 } else {
                     mView.showToast("검색된 책이 없습니다. 제목을 다시 입력해주세요.");
                 }
@@ -123,19 +129,31 @@ public class SaleStepPresenter implements SaleStepContract.Presenter, OnBookClic
     @Override
     public void onBookClick(View view, Object value) {
         BookList.BookInfo bookInfo = (BookList.BookInfo) mAdapterModel.getItem((int)value);
-        mView.setSearch(bookInfo.getVolumeInfo().getTitle());
-        ArrayList<BookList.Identity> identities = bookInfo.getVolumeInfo().getIndustryIdentifiers();
-        String isbn10 = null, isbn13 = null;
+
+        String[] isbns = getIsbnCodes(bookInfo.getVolumeInfo().getIndustryIdentifiers());
+        publishData(isbns[0], isbns[1],
+                bookInfo.getVolumeInfo().getTitle(), bookInfo.getVolumeInfo().getImageLinks());
+    }
+
+    private String[] getIsbnCodes(ArrayList<BookList.Identity> identities) {
+        String[] isbns = new String[2];
+        Arrays.fill(isbns, null);
         for (int i=0; i<identities.size(); i++) {
-            if (identities.get(i).getType().equals(EventData.Book.ISBN_10)) {
-                isbn10 = identities.get(i).getIdentifier();
-            } else if (identities.get(i).getType().equals(EventData.Book.ISBN_13)) {
-                isbn13 = identities.get(i).getIdentifier();
+            if (identities.get(i).getType().equals(String.valueOf(EventData.Book.ISBN_10))) {
+                isbns[0] = identities.get(i).getIdentifier();
+            } else if (identities.get(i).getType().equals(String.valueOf(EventData.Book.ISBN_13))) {
+                isbns[1] = identities.get(i).getIdentifier();
             }
         }
+        return isbns;
+    }
+
+    private void publishData(String isbn10, String isbn13, String title, BookList.BookImage bookImage) {
+        mView.setSearch(title);
+
         PurchaseStepFragment.eventDataProvider(EventData.Book.ISBN_10, isbn10);
         PurchaseStepFragment.eventDataProvider(EventData.Book.ISBN_13, isbn13);
-        PurchaseStepFragment.eventDataProvider(EventData.Book.TITLE, bookInfo.getVolumeInfo().getTitle());
-        PurchaseStepFragment.eventDataProvider(EventData.Book.IMAGE, bookInfo.getVolumeInfo().getImageLinks());
+        PurchaseStepFragment.eventDataProvider(EventData.Book.TITLE, title);
+        PurchaseStepFragment.eventDataProvider(EventData.Book.IMAGE, bookImage);
     }
 }

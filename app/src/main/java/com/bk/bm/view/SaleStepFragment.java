@@ -176,6 +176,7 @@ public class SaleStepFragment {
         @BindView(R.id.max_price) EditText maxPrice;
         @BindView(R.id.min_price_title) TextView minPriceTitle;
         @BindView(R.id.max_layout) LinearLayout maxLayout;
+        @BindView(R.id.max_line) TextView maxLine;
 
         public static Fragment newInstance() {
             Fragment fragment = new SecondStepFragment();
@@ -192,6 +193,7 @@ public class SaleStepFragment {
             priceTitle.setText("팔고 싶은 책의 가격을 설정해주세요");
             minPriceTitle.setText("판매 가격");
             maxLayout.setVisibility(View.GONE);
+            maxLine.setVisibility(View.GONE);
 
             minPrice.addTextChangedListener(new TextWatcher() {
                 @Override
@@ -354,7 +356,7 @@ public class SaleStepFragment {
     }
 
     public static class FifthStepFragment extends BaseFragment implements SaleStepContract.View {
-
+        private static final String TAG = FifthStepFragment.class.getName();
         private SaleStepContract.Presenter mPresenter;
 
         @BindView(R.id.ok)
@@ -386,7 +388,8 @@ public class SaleStepFragment {
         @OnClick(R.id.ok)
         public void onOkClick() {
             HashMap<Book, Object> bookInfo = ((SaleWriteActivity)getActivity()).getBookInfo();
-            mPresenter.uploadSaleBook(bookInfo);
+            Log.e(TAG, String.valueOf(bookInfo));
+//            mPresenter.uploadSaleBook(bookInfo);
         }
 
         @Override

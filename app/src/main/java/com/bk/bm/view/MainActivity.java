@@ -1,5 +1,6 @@
 package com.bk.bm.view;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
@@ -11,6 +12,7 @@ import android.support.v7.widget.SwitchCompat;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.bk.bm.R;
 import com.bk.bm.adapter.ViewPagerAdapter;
@@ -110,6 +112,11 @@ public class MainActivity extends BaseActivity
 
         mDrawerLayout.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    public void startActivityToWrite(View view) {
+        Log.e(TAG, "awefawef");
+        startActivity(new Intent(this, PurchaseWriteActivity.class));
     }
 
     @Override

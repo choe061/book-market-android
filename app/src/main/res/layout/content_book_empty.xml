@@ -35,7 +35,6 @@
         android:layout_marginRight="16dp"
         android:src="@drawable/add"
         app:fabSize="normal"
-        app:layout_behavior="com.bk.bm.widget.ScrollAwareFABBehavior"
         app:backgroundTint="@color/blue_200" />
 
 </RelativeLayout>

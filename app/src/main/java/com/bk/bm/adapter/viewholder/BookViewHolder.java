@@ -40,7 +40,6 @@ public class BookViewHolder extends RecyclerView.ViewHolder {
 
     @OnClick(R.id.book_move_vert)
     public void onMoveVertClick() {
-        int position = getLayoutPosition();
         BookFixDialog dialog = new BookFixDialog();
         dialog.show(mFragmentManager, "BOOK_FIX");
         dialog.setOnDataListener(new OnDataListener() {
