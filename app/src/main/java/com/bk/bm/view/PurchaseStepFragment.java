@@ -126,11 +126,6 @@ public class PurchaseStepFragment {
         }
 
         @Override
-        public void setPresenter(PurchaseStepContract.Presenter presenter) {
-
-        }
-
-        @Override
         public void showProgress() {
             super.showProgress();
         }

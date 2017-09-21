@@ -140,11 +140,6 @@ public class SaleStepFragment {
         }
 
         @Override
-        public void setPresenter(SaleStepContract.Presenter presenter) {
-
-        }
-
-        @Override
         public void showProgress() {
             super.showProgress();
         }
@@ -332,9 +327,7 @@ public class SaleStepFragment {
             View view = super.onCreateView(inflater, container, savedInstanceState);
             comment.addTextChangedListener(new TextWatcher() {
                 @Override
-                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-                }
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
 
                 @Override
                 public void onTextChanged(CharSequence s, int start, int before, int count) {
@@ -342,9 +335,7 @@ public class SaleStepFragment {
                 }
 
                 @Override
-                public void afterTextChanged(Editable s) {
-
-                }
+                public void afterTextChanged(Editable s) {}
             });
             return view;
         }
@@ -388,7 +379,7 @@ public class SaleStepFragment {
         @OnClick(R.id.ok)
         public void onOkClick() {
             HashMap<Book, Object> bookInfo = ((SaleWriteActivity)getActivity()).getBookInfo();
-            Log.e(TAG, String.valueOf(bookInfo));
+            Log.d(TAG, String.valueOf(bookInfo));
 //            mPresenter.uploadSaleBook(bookInfo);
         }
 
@@ -396,11 +387,6 @@ public class SaleStepFragment {
         public void onDetach() {
             super.onDetach();
             mPresenter.detachView();
-        }
-
-        @Override
-        public void setPresenter(SaleStepContract.Presenter presenter) {
-
         }
 
         @Override

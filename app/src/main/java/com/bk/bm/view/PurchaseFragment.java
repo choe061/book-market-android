@@ -89,11 +89,6 @@ public class PurchaseFragment extends BaseFragment implements PurchaseContract.V
     }
 
     @Override
-    public void setPresenter(PurchaseContract.Presenter presenter) {
-
-    }
-
-    @Override
     public void showProgress() {
         super.showProgress();
     }

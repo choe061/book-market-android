@@ -14,6 +14,7 @@ import android.widget.Toast;
 import com.bk.bm.App;
 import com.bk.bm.network.HttpService;
 import com.bk.bm.util.BookUtils;
+import com.bk.bm.util.exception.ExceptionHandler;
 
 import javax.inject.Inject;
 
@@ -44,6 +45,7 @@ public abstract class BaseFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        Thread.setDefaultUncaughtExceptionHandler(new ExceptionHandler(getActivity()));
         View view = inflater.inflate(getLayoutResource(), container, false);
         ButterKnife.bind(this, view);
         App.getAppComponent().inject(this);

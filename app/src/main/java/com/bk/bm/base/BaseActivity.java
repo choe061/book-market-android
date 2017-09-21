@@ -23,6 +23,7 @@ import com.bk.bm.App;
 import com.bk.bm.R;
 import com.bk.bm.network.HttpService;
 import com.bk.bm.util.BookUtils;
+import com.bk.bm.util.exception.ExceptionHandler;
 import com.bk.bm.view.LoginActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.kakao.auth.Session;
@@ -55,6 +56,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         BookUtils.setStatusBackground(this);
         super.onCreate(savedInstanceState);
+        Thread.setDefaultUncaughtExceptionHandler(new ExceptionHandler(this));
         setContentView(getLayoutResource());
         ButterKnife.bind(this);
         App.getAppComponent().inject(this);
