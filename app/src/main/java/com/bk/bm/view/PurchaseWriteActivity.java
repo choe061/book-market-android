@@ -1,6 +1,5 @@
 package com.bk.bm.view;
 
-import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -14,7 +13,6 @@ import android.widget.Button;
 
 import com.bk.bm.R;
 import com.bk.bm.base.BaseActivity;
-import com.bk.bm.util.EventData;
 import com.bk.bm.util.EventData.Book;
 import com.bk.bm.util.MessageEvent;
 

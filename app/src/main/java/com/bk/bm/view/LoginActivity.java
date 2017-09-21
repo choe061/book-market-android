@@ -63,11 +63,6 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
     }
 
     @Override
-    public void setPresenter(LoginContract.Presenter presenter) {
-
-    }
-
-    @Override
     public void showProgress() {
         super.showProgress();
     }

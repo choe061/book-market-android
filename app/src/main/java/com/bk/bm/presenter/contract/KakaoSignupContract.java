@@ -10,10 +10,7 @@ import com.bk.bm.network.HttpService;
  */
 
 public interface KakaoSignupContract {
-    interface View extends BaseContract.BaseView<Presenter> {
-        @Override
-        void setPresenter(Presenter presenter);
-
+    interface View extends BaseContract.BaseView {
         @Override
         void showProgress();
 

@@ -35,11 +35,6 @@ public class KakaoSignupActivity extends BaseActivity implements KakaoSignupCont
     }
 
     @Override
-    public void setPresenter(KakaoSignupContract.Presenter presenter) {
-
-    }
-
-    @Override
     public void showProgress() {
 
     }

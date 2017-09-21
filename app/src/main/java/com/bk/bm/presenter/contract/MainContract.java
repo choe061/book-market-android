@@ -8,7 +8,7 @@ import com.bk.bm.base.BaseContract;
 
 public interface MainContract {
 
-    interface View extends BaseContract.BaseView<Presenter> {
+    interface View extends BaseContract.BaseView {
 
         @Override
         void showProgress();

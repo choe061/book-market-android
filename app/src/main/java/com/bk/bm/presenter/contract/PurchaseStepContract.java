@@ -8,10 +8,7 @@ import com.bk.bm.base.BaseContract;
  */
 
 public interface PurchaseStepContract {
-    interface View extends BaseContract.BaseView<Presenter> {
-        @Override
-        void setPresenter(Presenter presenter);
-
+    interface View extends BaseContract.BaseView {
         @Override
         void showProgress();
 

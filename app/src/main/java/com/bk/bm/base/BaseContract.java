@@ -1,18 +1,12 @@
 package com.bk.bm.base;
 
-import android.content.SharedPreferences;
-
-import com.bk.bm.network.HttpService;
-
 /**
  * Created by choi on 2017. 8. 18..
  */
 
 public interface BaseContract {
 
-    interface BaseView<P extends BasePresenter> {
-        void setPresenter(P presenter);
-
+    interface BaseView {
         void showProgress();
 
         void hideProgress();

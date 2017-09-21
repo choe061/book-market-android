@@ -11,10 +11,7 @@ import java.util.HashMap;
  */
 
 public interface SaleStepContract {
-    interface View extends BaseContract.BaseView<Presenter> {
-        @Override
-        void setPresenter(Presenter presenter);
-
+    interface View extends BaseContract.BaseView {
         @Override
         void showProgress();
 

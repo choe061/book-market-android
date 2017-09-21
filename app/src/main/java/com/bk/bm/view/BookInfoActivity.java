@@ -63,11 +63,6 @@ public class BookInfoActivity extends BaseActivity implements BookInfoContract.V
     }
 
     @Override
-    public void setPresenter(BookInfoContract.Presenter presenter) {
-
-    }
-
-    @Override
     public void showProgress() {
         super.showProgress();
     }

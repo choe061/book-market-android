@@ -34,7 +34,7 @@ public class MainActivity extends BaseActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setTitle("췕84");
+        setTitle("췕48");
         onLoginCheck(this);
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -111,11 +111,6 @@ public class MainActivity extends BaseActivity
 
     public void startActivityToWrite(View view) {
         startActivity(new Intent(this, PurchaseWriteActivity.class));
-    }
-
-    @Override
-    public void setPresenter(MainContract.Presenter presenter) {
-
     }
 
     @Override

@@ -9,10 +9,7 @@ import com.bk.bm.model.domain.Book;
  */
 
 public interface PurchaseContract {
-    interface View extends BaseContract.BaseView<Presenter> {
-        @Override
-        void setPresenter(Presenter presenter);
-
+    interface View extends BaseContract.BaseView {
         @Override
         void showProgress();
 

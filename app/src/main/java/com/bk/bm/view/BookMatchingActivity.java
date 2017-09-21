@@ -69,11 +69,6 @@ public class BookMatchingActivity extends BaseActivity implements BookMatchingCo
     }
 
     @Override
-    public void setPresenter(BookMatchingContract.Presenter presenter) {
-
-    }
-
-    @Override
     public void showProgress() {
         super.showProgress();
     }
