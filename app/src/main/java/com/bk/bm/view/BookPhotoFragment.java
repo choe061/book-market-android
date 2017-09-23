@@ -1,24 +1,30 @@
 package com.bk.bm.view;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
-import android.os.Build;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
-import android.support.v4.content.ContextCompat;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.bk.bm.R;
 import com.bk.bm.base.BaseFragment;
+import com.bk.bm.util.PermissionHelper;
+import com.bumptech.glide.Glide;
+
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -29,7 +35,9 @@ import butterknife.OnClick;
 
 public class BookPhotoFragment extends BaseFragment {
 
-    private static final int MY_PERMISSIONS_CAMERA_CONTACTS = 1003;
+    private static final int CAMERA_CONTACTS = 1003;
+    private static final int GALLERY_CONTACTS = 1004;
+    private static final int STORAGE_CONTACTS = 2000;
     private static int mImageLocation = 0;
 
     @BindView(R.id.image1) ImageView mImage1;
@@ -62,36 +70,61 @@ public class BookPhotoFragment extends BaseFragment {
     @OnClick({R.id.image1, R.id.image2, R.id.image3, R.id.image4, R.id.image5, R.id.image6})
     public void onImageClick() {
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        startActivityForResult(intent, MY_PERMISSIONS_CAMERA_CONTACTS);
+        File picture = savePictureFile();
+        if (picture != null) {
+            intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(picture));
+            startActivityForResult(intent, CAMERA_CONTACTS);
+        }
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == MY_PERMISSIONS_CAMERA_CONTACTS) {
-            try {
-                Bitmap bm = (Bitmap) data.getExtras().get("data");
-                Log.e("requestCode", String.valueOf(bm));
-                mImage1.setImageBitmap(bm);
-            } catch (NullPointerException ignore) {}
+        if (requestCode == CAMERA_CONTACTS) {
+            
         }
     }
 
-    public void checkPermission() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            int permissionCheck = ContextCompat.checkSelfPermission(getContext(), Manifest.permission.CAMERA);
-            if(permissionCheck == PackageManager.PERMISSION_DENIED){
-                // 권한 없음
-                if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(), Manifest.permission.CAMERA)) {
+    private File savePictureFile() {
+        PermissionHelper.Builder builder = new PermissionHelper.Builder(getActivity());
+        int result = builder.create()
+                .request(Manifest.permission.WRITE_EXTERNAL_STORAGE, STORAGE_CONTACTS,
+                        new PermissionHelper.OnPermissionDenyListener() {
+                            @Override
+                            public void onClick(Activity activity) {
+                                Toast.makeText(activity, "카메라 사용 권한을 거부하면 사진을 불러올 수 없습니다.", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+        if (result == PermissionHelper.ALREADY_GRANTED
+                || result == PermissionHelper.REQUEST_PERMISSION) {
+            @SuppressLint("SimpleDateFormat")
+            String timestamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+            String fileName = "BOOK48_"+timestamp;
 
-                } else {
-                    ActivityCompat.requestPermissions(getActivity(),
-                            new String[]{Manifest.permission.READ_CONTACTS},
-                            MY_PERMISSIONS_CAMERA_CONTACTS);
-                }
-            }else{
-                // 권한 있음
+            File pictureStorage = new File(
+                    Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES),
+                    "BOOK48/");
+
+            if (!pictureStorage.exists()) {
+                pictureStorage.mkdirs();
             }
+
+            try {
+                File tempFile = File.createTempFile(fileName, ".jpg", pictureStorage);
+                String imagePath = tempFile.getAbsolutePath();
+                Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
+
+                File file = new File(imagePath);
+                Uri contentUri = Uri.fromFile(file);
+                mediaScanIntent.setData(contentUri);
+                getActivity().sendBroadcast(mediaScanIntent);
+                return file;
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } else {
+            Toast.makeText(getActivity(), "카메라 사용 권한을 거부하면 사진을 불러올 수 없습니다.", Toast.LENGTH_SHORT).show();
         }
+        return null;
     }
 }
