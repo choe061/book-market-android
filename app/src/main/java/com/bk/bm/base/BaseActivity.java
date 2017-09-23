@@ -56,7 +56,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         BookUtils.setStatusBackground(this);
         super.onCreate(savedInstanceState);
-        Thread.setDefaultUncaughtExceptionHandler(new ExceptionHandler(this));
+//        Thread.setDefaultUncaughtExceptionHandler(new ExceptionHandler(this));
         setContentView(getLayoutResource());
         ButterKnife.bind(this);
         App.getAppComponent().inject(this);

@@ -2,17 +2,23 @@ package com.bk.bm.network;
 
 import com.bk.bm.model.domain.Book;
 import com.bk.bm.model.domain.BookList;
+import com.bk.bm.model.domain.SaleBook;
 import com.bk.bm.model.domain.User;
 import com.google.gson.JsonObject;
 
 import io.reactivex.Observable;
+import okhttp3.MultipartBody;
 import retrofit2.Call;
 import retrofit2.Response;
 import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.Header;
+import retrofit2.http.Headers;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.Part;
 import retrofit2.http.Query;
 
 /**
@@ -62,4 +68,26 @@ public interface HttpService {
     @POST("/v0/book")
     Observable<Response<Void>> enrollSaleBook(@Body Book book);
 
+    /**
+     * 판매할 책에 대한 이미지 업로드
+     * @param file
+     * @return
+     */
+    @Multipart
+    @POST("v0/file")
+    Observable<Response<JsonObject>> enrollImage(@Part MultipartBody.Part file);
+
+    /**
+     * 유저가 판매 도서로 등록한 도서 리스트
+     * @return
+     */
+    @GET("v0/book")
+    Observable<Response<SaleBook>> requestBookList();
+
+    /**
+     * 유저가 판매 도서로 등록한 도서 중 하나를 불러옴
+     * @return
+     */
+    @GET("v0/book")
+    Observable<Response<JsonObject>> requestBook(@Query("book_key") int book_key);
 }

@@ -45,7 +45,7 @@ public abstract class BaseFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        Thread.setDefaultUncaughtExceptionHandler(new ExceptionHandler(getActivity()));
+//        Thread.setDefaultUncaughtExceptionHandler(new ExceptionHandler(getActivity()));
         View view = inflater.inflate(getLayoutResource(), container, false);
         ButterKnife.bind(this, view);
         App.getAppComponent().inject(this);

@@ -38,8 +38,11 @@ import com.bk.bm.util.MessageEvent;
 
 import org.greenrobot.eventbus.EventBus;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -379,8 +382,11 @@ public class SaleStepFragment {
         @OnClick(R.id.ok)
         public void onOkClick() {
             HashMap<Book, Object> bookInfo = ((SaleWriteActivity)getActivity()).getBookInfo();
+            File file = (File) bookInfo.get(Book.IMAGE);
             Log.d(TAG, String.valueOf(bookInfo));
+            Log.d(TAG, String.valueOf(file));
 //            mPresenter.uploadSaleBook(bookInfo);
+            mPresenter.uploadBookImage(file);
         }
 
         @Override

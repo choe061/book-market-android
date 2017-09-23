@@ -4,6 +4,7 @@ import com.bk.bm.base.BaseAdapterContract;
 import com.bk.bm.base.BaseContract;
 import com.bk.bm.util.EventData;
 
+import java.io.File;
 import java.util.HashMap;
 
 /**
@@ -40,5 +41,7 @@ public interface SaleStepContract {
         void requestSearchBook(String bookId);
 
         void uploadSaleBook(HashMap<EventData.Book, Object> bookInfo);
+
+        void uploadBookImage(File file);
     }
 }

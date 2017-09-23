@@ -14,6 +14,7 @@ import com.bk.bm.view.PurchaseStepFragment;
 import com.bk.bm.view.SaleStepFragment;
 import com.bk.bm.widget.OnBookClickListener;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -24,6 +25,9 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.Response;
 
 /**
@@ -123,6 +127,19 @@ public class SaleStepPresenter implements SaleStepContract.Presenter, OnBookClic
     }
 
     @Override
+    public void uploadBookImage(File file) {
+        RequestBody requestBody = RequestBody.create(MediaType.parse("multipart/form-data"), file);
+        MultipartBody.Part body = MultipartBody.Part.createFormData("file", file.getName(), requestBody);
+        Disposable disposable = mBookService.uploadBookImage(body)
+                .subscribe(response -> {
+                    Log.d(TAG, String.valueOf(response));
+                }, throwable -> {
+                    Log.e(TAG, throwable.getMessage());
+                });
+        mCompositeDisposable.add(disposable);
+    }
+
+    @Override
     public void onBookClick(View view, Object value) {
         BookList.BookInfo bookInfo = (BookList.BookInfo) mAdapterModel.getItem((int)value);
 
@@ -152,4 +169,6 @@ public class SaleStepPresenter implements SaleStepContract.Presenter, OnBookClic
         PurchaseStepFragment.eventDataProvider(EventData.Book.TITLE, title);
         PurchaseStepFragment.eventDataProvider(EventData.Book.IMAGE, bookImage);
     }
+
+
 }
