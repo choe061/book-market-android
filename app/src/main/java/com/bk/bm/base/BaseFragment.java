@@ -48,7 +48,7 @@ public abstract class BaseFragment extends Fragment {
 //        Thread.setDefaultUncaughtExceptionHandler(new ExceptionHandler(getActivity()));
         View view = inflater.inflate(getLayoutResource(), container, false);
         ButterKnife.bind(this, view);
-        App.getAppComponent().inject(this);
+        ((App)getActivity().getApplication()).getAppComponent().inject(this);
         httpService = retrofit.create(HttpService.class);
         return view;
     }

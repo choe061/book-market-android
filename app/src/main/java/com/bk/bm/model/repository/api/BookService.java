@@ -4,16 +4,17 @@ import android.util.Log;
 
 import com.bk.bm.model.domain.Book;
 import com.bk.bm.model.domain.BookList;
+import com.bk.bm.model.domain.Content;
+import com.bk.bm.model.domain.EnrollBook;
 import com.bk.bm.network.ApiCallback;
 import com.bk.bm.network.HttpService;
 import com.bk.bm.util.Constants;
 import com.google.gson.JsonObject;
 
-import java.io.File;
+import java.util.ArrayList;
 
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
@@ -22,7 +23,6 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
-import retrofit2.http.Multipart;
 
 /**
  * Created by choi on 2017. 8. 29..
@@ -76,6 +76,12 @@ public class BookService {
     public Observable<Response<JsonObject>> uploadBookImage(MultipartBody.Part body) {
         Observable<Response<JsonObject>> uploadImage = httpService.enrollImage(body);
         return uploadImage.subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    public Observable<Response<Content>> requestBookList() {
+        Observable<Response<Content>> bookList = httpService.requestBookList();
+        return bookList.subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread());
     }
 }

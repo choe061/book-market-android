@@ -20,6 +20,6 @@ import dagger.Component;
 public interface AppComponent {
     void inject(BaseActivity activity);
     void inject(BaseFragment fragment);
-    void inject(KakaoSDKAdapter adapter);
+//    void inject(KakaoSDKAdapter adapter);
     void inject(BasePresenter presenter);
 }

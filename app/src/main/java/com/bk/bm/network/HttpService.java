@@ -2,9 +2,12 @@ package com.bk.bm.network;
 
 import com.bk.bm.model.domain.Book;
 import com.bk.bm.model.domain.BookList;
-import com.bk.bm.model.domain.SaleBook;
+import com.bk.bm.model.domain.Content;
+import com.bk.bm.model.domain.EnrollBook;
 import com.bk.bm.model.domain.User;
 import com.google.gson.JsonObject;
+
+import java.util.ArrayList;
 
 import io.reactivex.Observable;
 import okhttp3.MultipartBody;
@@ -14,8 +17,6 @@ import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
-import retrofit2.http.Header;
-import retrofit2.http.Headers;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
@@ -82,7 +83,7 @@ public interface HttpService {
      * @return
      */
     @GET("v0/book")
-    Observable<Response<SaleBook>> requestBookList();
+    Observable<Response<Content>> requestBookList();
 
     /**
      * 유저가 판매 도서로 등록한 도서 중 하나를 불러옴

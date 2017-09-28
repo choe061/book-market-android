@@ -1,5 +1,6 @@
 package com.bk.bm;
 
+import android.app.Activity;
 import android.app.Application;
 
 import com.bk.bm.util.Constants;
@@ -16,10 +17,12 @@ import com.kakao.auth.KakaoSDK;
 
 public class App extends Application {
     private static AppComponent appComponent;
+    private static volatile App app;
 
     @Override
     public void onCreate() {
         super.onCreate();
+        app = this;
         appComponent = DaggerAppComponent.builder()
                 .appModule(new AppModule(this))
                 .netModule(new NetModule(Constants.BASE_URL))
@@ -27,7 +30,11 @@ public class App extends Application {
         KakaoSDK.init(new KakaoSDKAdapter());
     }
 
-    public static AppComponent getAppComponent() {
+    public AppComponent getAppComponent() {
         return appComponent;
+    }
+
+    public static App getGlobalApplicationContext() {
+        return app;
     }
 }

@@ -51,7 +51,6 @@ public class BookPhotoFragment extends BaseFragment {
     private static final int STORAGE_CONTACTS = 2000;
     private static int mImageLocation = 0;
     private String mImagePath;
-    private static HashMap<String, File> imageFiles = new HashMap<>();
 
     @BindView(R.id.image1) ImageView mImage1;
     @BindView(R.id.image2) ImageView mImage2;
@@ -65,12 +64,6 @@ public class BookPhotoFragment extends BaseFragment {
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;
-    }
-
-    public static void put(File file) {
-        imageFiles.put(file.getName(), file);
-        Log.e("put", String.valueOf(imageFiles));
-        SaleStepFragment.eventDataProvider(EventData.Book.IMAGE, file);
     }
 
     @Nullable
@@ -90,8 +83,9 @@ public class BookPhotoFragment extends BaseFragment {
     public void onImageClick() {
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         File picture = savePictureFile();
+
         SaleStepFragment.eventDataProvider(EventData.Book.IMAGE, picture);
-        Log.e("onImageClick", String.valueOf(imageFiles));
+
         if (picture != null) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                 Uri photoUri = FileProvider
@@ -112,12 +106,6 @@ public class BookPhotoFragment extends BaseFragment {
         if (requestCode == CAMERA_CONTACTS) {
             Bitmap bm = BookImageUtils.decodeSampleBitmapFromResource(mImagePath, mImage1.getWidth(), mImage1.getHeight());
             mImage1.setImageBitmap(bm);
-//            BitmapFactory.Options factory = new BitmapFactory.Options();
-//            factory.inJustDecodeBounds = true;
-//            BitmapFactory.decodeFile(mImagePath);
-//            factory.inJustDecodeBounds = false;
-//            Bitmap bitmap = BitmapFactory.decodeFile(mImagePath, factory);
-//            mImage1.setImageBitmap(bitmap);
         }
     }
 

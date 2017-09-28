@@ -12,9 +12,9 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class SaleBook {
-    private int book_id;
-    private int user_id;
+public class EnrollBook {
+    private int book_key;
+    private int user_key;
     private String isbn10;
     private String isbn13;
     private String title;

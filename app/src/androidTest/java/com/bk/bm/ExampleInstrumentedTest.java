@@ -8,6 +8,7 @@ import android.support.test.runner.AndroidJUnit4;
 
 import com.bk.bm.model.repository.api.BookService;
 import com.bk.bm.util.Constants;
+import com.bk.bm.util.di.AppComponent;
 import com.bk.bm.util.di.DaggerAppComponent;
 import com.bk.bm.util.di.modules.AppModule;
 import com.bk.bm.util.di.modules.NetModule;
@@ -34,7 +35,6 @@ public class ExampleInstrumentedTest {
     public void setUp() throws Exception {
 
     }
-
 
     @Test
     public void useAppContext() throws Exception {

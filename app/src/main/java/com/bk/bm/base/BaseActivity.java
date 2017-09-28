@@ -59,7 +59,7 @@ public abstract class BaseActivity extends AppCompatActivity {
 //        Thread.setDefaultUncaughtExceptionHandler(new ExceptionHandler(this));
         setContentView(getLayoutResource());
         ButterKnife.bind(this);
-        App.getAppComponent().inject(this);
+        ((App)getApplication()).getAppComponent().inject(this);
         httpService = retrofit.create(HttpService.class);
         setDisplayHomeEnabled(true);
     }
@@ -120,6 +120,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         UserManagement.requestLogout(new LogoutResponseCallback() {
             @Override
             public void onCompleteLogout() {
+                Session.getCurrentSession().close();
                 FirebaseAuth.getInstance().signOut();
                 hideProgress();
                 startActivity(new Intent(activity, LoginActivity.class));
