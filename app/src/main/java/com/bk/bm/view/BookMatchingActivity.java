@@ -13,6 +13,7 @@ import com.bk.bm.adapter.BookMatchingRecyclerViewAdapter;
 import com.bk.bm.base.BaseActivity;
 import com.bk.bm.model.domain.Book;
 import com.bk.bm.model.repository.api.BookService;
+import com.bk.bm.model.repository.api.GoogleBooksApiService;
 import com.bk.bm.presenter.BookMatchingPresenter;
 import com.bk.bm.presenter.contract.BookMatchingContract;
 import com.bumptech.glide.Glide;
@@ -44,8 +45,8 @@ public class BookMatchingActivity extends BaseActivity implements BookMatchingCo
         mBookRecyclerView.setAdapter(adapter);
         mBookRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        BookService bookService = new BookService();
-        mPresenter = new BookMatchingPresenter(bookService);
+        GoogleBooksApiService googleBooksApiService = new GoogleBooksApiService();
+        mPresenter = new BookMatchingPresenter(googleBooksApiService);
         mPresenter.attachView(this);
         mPresenter.setAdapterModel(adapter);
         mPresenter.setAdapterView(adapter);

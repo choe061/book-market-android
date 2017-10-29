@@ -5,6 +5,7 @@ import android.view.View;
 import com.bk.bm.base.BaseAdapterContract;
 import com.bk.bm.model.domain.Book;
 import com.bk.bm.model.repository.api.BookService;
+import com.bk.bm.model.repository.api.GoogleBooksApiService;
 import com.bk.bm.presenter.contract.PurchaseContract;
 import com.bk.bm.widget.OnBookClickListener;
 
@@ -17,14 +18,14 @@ import io.reactivex.disposables.CompositeDisposable;
 public class PurchasePresenter implements PurchaseContract.Presenter, OnBookClickListener {
 
     private PurchaseContract.View mView;
-    private BookService mBookService;
+    private GoogleBooksApiService mGoogleBooksApiService;
 
     private CompositeDisposable mCompositeDisposable;
     private BaseAdapterContract.Model mAdapterModel;
     private BaseAdapterContract.View mAdapterView;
 
-    public PurchasePresenter(BookService mBookService) {
-        this.mBookService = mBookService;
+    public PurchasePresenter(GoogleBooksApiService mGoogleBooksApiService) {
+        this.mGoogleBooksApiService = mGoogleBooksApiService;
     }
 
     @Override

@@ -7,6 +7,7 @@ import com.bk.bm.base.BaseAdapterContract;
 import com.bk.bm.model.domain.Book;
 import com.bk.bm.model.domain.BookList;
 import com.bk.bm.model.repository.api.BookService;
+import com.bk.bm.model.repository.api.GoogleBooksApiService;
 import com.bk.bm.network.ApiCallback;
 import com.bk.bm.presenter.contract.SaleStepContract;
 import com.bk.bm.util.EventData;
@@ -39,16 +40,18 @@ public class SaleStepPresenter implements SaleStepContract.Presenter, OnBookClic
     private final String TAG = SaleStepPresenter.class.getName();
     private SaleStepContract.View mView;
     private BookService mBookService;
+    private GoogleBooksApiService mGoogleBooksApiService;
 
     private CompositeDisposable mCompositeDisposable;
     private BaseAdapterContract.Model mAdapterModel;
     private BaseAdapterContract.View mAdapterView;
 
-    public SaleStepPresenter() {
+    public SaleStepPresenter(BookService bookService) {
+        this.mBookService = bookService;
     }
 
-    public SaleStepPresenter(BookService mBookService) {
-        this.mBookService = mBookService;
+    public SaleStepPresenter(GoogleBooksApiService googleBooksApiService) {
+        this.mGoogleBooksApiService = googleBooksApiService;
     }
 
     @Override
@@ -77,7 +80,7 @@ public class SaleStepPresenter implements SaleStepContract.Presenter, OnBookClic
     @Override
     public void requestSearchBook(String bookId) {
         mView.showProgress();
-        mBookService.requestSearchBook(bookId, new ApiCallback<Response<BookList>>() {
+        mGoogleBooksApiService.requestSearchBook(bookId, new ApiCallback<Response<BookList>>() {
             @Override
             public void onSuccess(Response<BookList> model) {
                 Log.d(TAG, "requestSearchBook http response : "+model);

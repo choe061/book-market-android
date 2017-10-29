@@ -23,6 +23,7 @@ import com.bk.bm.R;
 import com.bk.bm.adapter.SearchBookRecyclerViewAdapter;
 import com.bk.bm.base.BaseFragment;
 import com.bk.bm.model.repository.api.BookService;
+import com.bk.bm.model.repository.api.GoogleBooksApiService;
 import com.bk.bm.presenter.PurchaseStepPresenter;
 import com.bk.bm.presenter.contract.PurchaseStepContract;
 import com.bk.bm.util.EventData;
@@ -87,8 +88,8 @@ public class PurchaseStepFragment {
             mSearchBookRecyclerView.setAdapter(adapter);
             mSearchBookRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-            BookService bookService = new BookService();
-            mPresenter = new PurchaseStepPresenter(bookService);
+            GoogleBooksApiService googleBooksApiService = new GoogleBooksApiService();
+            mPresenter = new PurchaseStepPresenter(googleBooksApiService);
             mPresenter.attachView(this);
             mPresenter.setAdapterModel(adapter);
             mPresenter.setAdapterView(adapter);

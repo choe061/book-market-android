@@ -19,6 +19,7 @@ import com.bk.bm.adapter.BookRecyclerViewAdapter;
 import com.bk.bm.base.BaseFragment;
 import com.bk.bm.model.domain.Book;
 import com.bk.bm.model.repository.api.BookService;
+import com.bk.bm.model.repository.api.GoogleBooksApiService;
 import com.bk.bm.presenter.PurchasePresenter;
 import com.bk.bm.presenter.contract.PurchaseContract;
 import com.bk.bm.widget.OnDataListener;
@@ -61,8 +62,8 @@ public class PurchaseFragment extends BaseFragment implements PurchaseContract.V
         mBookRecyclerView.setAdapter(adapter);
         mBookRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        BookService bookService = new BookService();
-        mPresenter = new PurchasePresenter(bookService);
+        GoogleBooksApiService googleBooksApiService = new GoogleBooksApiService();
+        mPresenter = new PurchasePresenter(googleBooksApiService);
         mPresenter.attachView(this);
         mPresenter.setAdapterModel(adapter);
         mPresenter.setAdapterView(adapter);
